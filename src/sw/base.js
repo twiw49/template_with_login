@@ -27,7 +27,7 @@ self.addEventListener("activate", e => {
 });
 
 self.addEventListener("fetch", e => {
-  cacheWithNetworkFallback(e);
+  if (!(e.request.url.indexOf("http") === 0)) cacheWithNetworkFallback(e);
 });
 
 // CACHE STRATEGIES
@@ -45,7 +45,9 @@ const cacheWithNetworkFallback = e => {
       // Fallback
       return fetch(e.request).then(newResponse => {
         // Cache fetched response
-        caches.open(CACHE_NAME).then(cache => cache.put(e.request, newResponse));
+        caches
+          .open(CACHE_NAME)
+          .then(cache => cache.put(e.request, newResponse));
         return newResponse.clone();
       });
     })
