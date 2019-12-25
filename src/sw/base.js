@@ -46,8 +46,8 @@ const cacheWithNetworkFallback = e => {
       return fetch(e.request).then(newResponse => {
         // Cache fetched response
         caches.open(CACHE_NAME).then(cache => {
-          console.log(e.request.url);
-          return cache.put(e.request, newResponse);
+          if (e.request.url.indexOf("http") === 0)
+            return cache.put(e.request, newResponse);
         });
         return newResponse.clone();
       });
