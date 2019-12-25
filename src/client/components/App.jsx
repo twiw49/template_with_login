@@ -4,6 +4,14 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import Home from "./Home";
 import LandingPage from "./LandingPage";
 import { connect } from "react-redux";
+import { injectGlobal } from "styled-components";
+
+injectGlobal`
+  body {
+    margin: 0;
+    padding: 0;
+  }
+`;
 
 const App = props => {
   const { isLoggedIn } = props;
