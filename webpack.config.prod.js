@@ -3,7 +3,7 @@ const { S3_BUCKET_URL } = process.env;
 
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
@@ -58,12 +58,14 @@ const clientConfig = {
         from: "src/assets/manifest.json",
         to: "manifest.json",
         transform(content, path) {
-          return content.toString().replace(/\[S3_BUCKET_URL\]/g, S3_BUCKET_URL);
+          return content
+            .toString()
+            .replace(/\[S3_BUCKET_URL\]/g, S3_BUCKET_URL);
         }
       }
     ]),
     new ManifestPlugin({ fileName: "manifest-asset.json" }),
-    new CleanWebpackPlugin(["dist"])
+    new CleanWebpackPlugin()
   ],
   resolve: {
     extensions: [".js", ".jsx"]
