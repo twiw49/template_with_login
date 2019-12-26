@@ -42,7 +42,7 @@ const Home = props => {
       <a href="/auth/logout">
         <Button>LOGOUT</Button>
       </a>
-      <Title>See You Soon!!</Title>
+      <Title>See You Soon!!!</Title>
     </Container>
   );
 };
