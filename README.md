@@ -164,3 +164,6 @@ yarn deploy
 
 - mlab에서 database 생성 => user 생성 => 주소 복사 => .env 파일 MONGODB_URL
 - google API key 발급 (https://tt.kollhong.com/54) => LandingPage.jsx => 승인된 자바스크립트 원본 (도메인주소, 로컬주소)
+
+* serverless.yml 에서 service 이름 파악
+* git remote -v 에서 github repo 주소 파악
