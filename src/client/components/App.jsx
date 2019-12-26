@@ -19,8 +19,6 @@ injectGlobal`
 const App = props => {
   const { user, isGuest } = props;
 
-  console.log(props);
-
   if (user || isGuest) {
     return (
       <Switch>
