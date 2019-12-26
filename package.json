@@ -9,7 +9,7 @@
     "build:prod": "NODE_ENV=production webpack --mode production && node ./src/sw/writeServiceWorker",
     "serve": "nodemon dist/lambda.js",
     "start": "concurrently \"yarn serve\" \"yarn build\"",
-    "s3-sync": "aws s3 sync ./dist/public/ s3://[*****YOUR S3_BUCKET_NAME*****] --delete",
+    "s3-sync": "aws s3 sync ./dist/public/ s3://richhabit --delete",
     "git": "git add . && git commit -m \"for deploy\"",
     "deploy": "yarn build:prod && yarn git && yarn s3-sync && sls deploy",
     "logs": "sls logs -f lambda"
