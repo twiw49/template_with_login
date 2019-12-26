@@ -57,31 +57,31 @@ const renderPage = ({
   mainCssUrl
 }) => {
   return `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
-        <meta name="description" content="">
-        <meta name="keywords" content="">
-        <meta property="og:title" content="">
-        <meta property="og:description" content="">
-        <meta property="og:url" content="">
-        ${meta}
-        ${cssMui}
-        <!-- jss-insertion-point -->
-        ${cssStyled}
-        <link rel="stylesheet" type="text/css" href=${mainCssUrl} />
-      </head>
-      <body>
-        <div id="root">${appString}</div>
-      </body>
-      <script id="preloaded-state">
-        window.PRELOADED_STATE = ${preloadedState}     
-      </script>
-      <script src=${mainJsUrl}></script>
-    </html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="">
+    ${meta}
+    ${cssMui}
+    <!-- jss-insertion-point -->
+    ${cssStyled}
+    <link rel="stylesheet" type="text/css" href=${mainCssUrl} />
+  </head>
+  <body>
+    <div id="root">${appString}</div>
+  </body>
+  <script id="preloaded-state">
+    window.PRELOADED_STATE = ${preloadedState}     
+  </script>
+  <script src=${mainJsUrl}></script>
+</html>
   `;
 };
 
