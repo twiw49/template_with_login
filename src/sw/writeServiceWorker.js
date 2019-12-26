@@ -1,11 +1,21 @@
-const { readFileSync, writeFileSync } = require("fs");
-const hash = require("random-id");
+const { readFileSync, writeFileSync } = require('fs');
 
-const assets = JSON.parse(readFileSync(`./dist/public/manifest-asset.json`, "utf8"));
+const makeid = () => {
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-const CACHE_NAME = `static-cache-${hash()}`;
-const URLS_TO_CACHE = ["./", ...Object.values(assets)];
-const BASE = readFileSync("./src/sw/base.js").toString();
+  for (var i = 0; i < 10; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return text;
+};
+
+const assets = JSON.parse(readFileSync('./dist/public/manifest-asset.json', 'utf8'));
+
+const CACHE_NAME = `static-cache-${makeid()}`;
+const URLS_TO_CACHE = ['https://bemystock.com', ...Object.values(assets)];
+const BASE = readFileSync('./src/sw/base.js').toString();
 const SW = `(function() {
   "use strict";
 
@@ -15,4 +25,4 @@ const SW = `(function() {
   ${BASE}
 })();`;
 
-writeFileSync("./dist/public/service-worker.js", SW);
+writeFileSync('./dist/public/service-worker.js', SW);

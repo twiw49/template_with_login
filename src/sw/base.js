@@ -1,33 +1,21 @@
-self.addEventListener("install", e => {
+self.addEventListener('install', e => {
   const onInstalled = caches
     .open(CACHE_NAME)
-    .then(cache => {
-      return cache.addAll(URLS_TO_CACHE);
-    })
-    .then(() => {
-      return self.skipWaiting();
-    });
+    .then(cache => cache.addAll(URLS_TO_CACHE))
+    .then(() => self.skipWaiting());
 
   e.waitUntil(onInstalled);
 });
 
-self.addEventListener("activate", e => {
-  const onActivated = Promise.all([
-    self.clients.claim(),
-    caches.keys().then(keyList => {
-      return Promise.all(
-        keyList.map(key => {
-          if (key !== CACHE_NAME) caches.delete(key);
-        })
-      );
-    })
-  ]);
+self.addEventListener('activate', e => {
+  const onActivated = caches.keys().then(keyList => keyList.map(key => caches.delete(key)));
+  // .then(() => self.clients.claim());
 
   e.waitUntil(onActivated);
 });
 
-self.addEventListener("fetch", e => {
-  cacheWithNetworkFallback(e);
+self.addEventListener('fetch', e => {
+  if (e.request.url.match(/(s3.ap-northeast-2.amazonaws.com)/)) cacheWithNetworkFallback(e);
 });
 
 // CACHE STRATEGIES
@@ -45,10 +33,7 @@ const cacheWithNetworkFallback = e => {
       // Fallback
       return fetch(e.request).then(newResponse => {
         // Cache fetched response
-        caches.open(CACHE_NAME).then(cache => {
-          if (e.request.url.indexOf("http") === 0)
-            return cache.put(e.request, newResponse);
-        });
+        caches.open(CACHE_NAME).then(cache => cache.put(e.request, newResponse));
         return newResponse.clone();
       });
     })
@@ -95,7 +80,7 @@ const cacheAndNetworkRace = e => {
       let firstRejectionReceived = false;
       let rejectOnce = () => {
         if (firstRejectionReceived) {
-          reject("No response received.");
+          reject('No response received.');
         } else {
           firstRejectionReceived = true;
         }
