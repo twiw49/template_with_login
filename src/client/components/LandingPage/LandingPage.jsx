@@ -1,50 +1,61 @@
-import React from "react";
-import styled from "styled-components";
-import background1 from "../../../assets/images/background1.jpg";
-
-const Title = styled.h1`
-  font-size: 2rem;
-  color: white;
-  text-align: center;
-`;
-
-const Button = styled.button`
-  font-size: 1rem;
-  padding: 1rem;
-  background: transparent;
-  color: white;
-  border: 3px solid white;
-  border-radius: 15px;
-`;
-
-const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
-const Image = styled.img.attrs({
-  src: background1
-})`
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-`;
+import React, { Fragment } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import * as Styled from "./Styled";
 
 const LandingPage = props => {
   const { dispatch } = props;
 
+  const enterAsGuest = () => {
+    dispatch({ type: "ENTER_AS_GUEST" });
+  };
+
+  const loginBySocial = async response => {
+    props.dispatch({
+      type: "START_LOADING"
+    });
+
+    const { data } = await axios.post("/auth/login", {
+      _id: response.profile.id,
+      name: response.profile.name
+    });
+
+    props.dispatch({
+      type: "LOGIN",
+      payload: {
+        ...data
+      }
+    });
+
+    props.dispatch({
+      type: "END_LOADING"
+    });
+  };
+
   return (
-    <Container>
-      <Image />
-      <Button onClick={() => dispatch({ type: "LOGIN" })}>LOGIN</Button>
-      <Title>Hello, Welcome!!!</Title>
-    </Container>
+    <Styled.Container>
+      <title>로그인</title>
+      <Styled.SubContainerEnd>
+        <Fragment>
+          <Styled.SocialButton
+            provider="google"
+            appId="998435986623-vfi5erk0gi67c2ner255sst6r9p821j0.apps.googleusercontent.com"
+            onLoginSuccess={response => loginBySocial(response)}
+            onLoginFailure={response => alert("다시 한 번 시도해주세요.")}
+          >
+            구글
+          </Styled.SocialButton>
+          <Styled.GuestButton to="/" onClick={enterAsGuest}>
+            둘러보기
+          </Styled.GuestButton>
+        </Fragment>
+      </Styled.SubContainerEnd>
+    </Styled.Container>
   );
+};
+
+LandingPage.propTypes = {
+  dispatch: PropTypes.func.isRequired
 };
 
 export default LandingPage;

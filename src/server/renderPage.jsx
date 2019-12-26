@@ -1,94 +1,88 @@
-require("dotenv").config();
-const { S3_BUCKET_URL } = process.env;
+import { readFileSync, existsSync } from "fs";
 
 import React from "react";
-import { readFileSync } from "fs";
-import { renderToString } from "react-dom/server";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
 import { StaticRouter } from "react-router";
-import { Helmet } from "react-helmet";
-import App from "../client/components/App";
+import { renderToString } from "react-dom/server";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 import { ServerStyleSheet } from "styled-components";
+
+import App from "../client/components/App";
 import rootReducer from "../client/reducers";
+import writeMeta from "./writeMeta";
+import withMui from "../client/HOCs/withMui";
 
-const manifest = JSON.parse(readFileSync(`./dist/public/manifest-asset.json`, "utf8"));
+const renderHandler = (req, res) => {
+  const manifestPath = "./dist/public/manifest-asset.json";
+  const manifest =
+    existsSync(manifestPath) && JSON.parse(readFileSync(manifestPath, "utf8"));
 
-const renderPage = (req, res) => {
-  const store = createStore(rootReducer);
-  const sheet = new ServerStyleSheet();
+  const initialState = req.initialState;
+  const store = createStore(rootReducer, initialState);
+  const preloadedState = JSON.stringify(store.getState());
 
-  const staticContext = {};
+  const { AppWithMui, sheetMui } = withMui(App);
+
+  const sheetStyled = new ServerStyleSheet();
+  sheetStyled.collectStyles(AppWithMui);
 
   const appString = renderToString(
-    sheet.collectStyles(
-      <Provider store={store}>
-        <StaticRouter location={req.url} context={staticContext}>
-          <App />
-        </StaticRouter>
-      </Provider>
-    )
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={{}}>
+        <AppWithMui />
+      </StaticRouter>
+    </Provider>
   );
 
-  const styles = sheet.getStyleTags();
+  res.send(
+    renderPage({
+      meta: writeMeta(),
+      cssStyled: sheetStyled.getStyleTags(),
+      cssMui: `<style id='server-side-mui'>${sheetMui.toString()}</style>`,
+      appString,
+      preloadedState,
+      mainJsUrl: manifest["main.js"],
+      mainCssUrl: manifest["main.css"]
+    })
+  );
+};
 
-  const preloadedState = store.getState();
-
-  const helmet = Helmet.renderStatic();
-
-  const meta = `
-    <link rel="manifest" href="/manifest.json">
-          
-    <meta name="apple-mobile-web-app-title" content="name">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-startup-image" href="${S3_BUCKET_URL}icons/launch.png">
-
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="${S3_BUCKET_URL}icons/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="${S3_BUCKET_URL}icons/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="${S3_BUCKET_URL}icons/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="${S3_BUCKET_URL}icons/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="${S3_BUCKET_URL}icons/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="${S3_BUCKET_URL}icons/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="${S3_BUCKET_URL}icons/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="${S3_BUCKET_URL}icons/apple-touch-icon-152x152.png">
-    <link rel="icon" type="image/png" href="${S3_BUCKET_URL}icons/favicon-196x196.png" sizes="196x196">
-    <link rel="icon" type="image/png" href="${S3_BUCKET_URL}icons/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="${S3_BUCKET_URL}icons/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="${S3_BUCKET_URL}icons/favicon-16x16.png" sizes="16x16">
-    <link rel="icon" type="image/png" href="${S3_BUCKET_URL}icons/favicon-128.png" sizes="128x128">
-
-    <meta name="msapplication-TileColor" content="#2D91F8">
-    <meta name="msapplication-TileImage" content="${S3_BUCKET_URL}icons/mstile-144x144.png">
-    <meta name="msapplication-square70x70logo" content="${S3_BUCKET_URL}icons/mstile-70x70.png">
-    <meta name="msapplication-square150x150logo" content="${S3_BUCKET_URL}icons/mstile-150x150.png">
-    <meta name="msapplication-wide310x150logo" content="${S3_BUCKET_URL}icons/mstile-310x150.png">
-    <meta name="msapplication-square310x310logo" content="${S3_BUCKET_URL}icons/mstile-310x310.png">
-  `;
-
-  const html = `
+const renderPage = ({
+  meta,
+  cssMui,
+  cssStyled,
+  appString,
+  preloadedState,
+  mainJsUrl,
+  mainCssUrl
+}) => {
+  return `
     <!DOCTYPE html>
     <html>
       <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
-        
-        ${process.env.NODE_ENV === "production" ? meta : ""} 
-        
-        ${styles}
-        ${helmet.title.toString()}
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta property="og:title" content="">
+        <meta property="og:description" content="">
+        <meta property="og:url" content="">
+        ${meta}
+        ${cssMui}
+        <!-- jss-insertion-point -->
+        ${cssStyled}
+        <link rel="stylesheet" type="text/css" href=${mainCssUrl} />
       </head>
       <body>
         <div id="root">${appString}</div>
       </body>
-      <script>
-        window.PRELOADED_STATE = ${JSON.stringify(preloadedState)}        
+      <script id="preloaded-state">
+        window.PRELOADED_STATE = ${preloadedState}     
       </script>
-      <script src=${manifest["main.js"]}></script>
+      <script src=${mainJsUrl}></script>
     </html>
   `;
-
-  res.send(html);
 };
 
-export default renderPage;
+export default renderHandler;

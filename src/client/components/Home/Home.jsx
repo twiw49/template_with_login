@@ -36,12 +36,12 @@ const Image = styled.img.attrs({
 `;
 
 const Home = props => {
-  const { dispatch } = props;
-
   return (
     <Container>
       <Image />
-      <Button onClick={() => dispatch({ type: "LOGOUT" })}>LOGOUT</Button>
+      <a href="/auth/logout">
+        <Button>LOGOUT</Button>
+      </a>
       <Title>See You Soon!!</Title>
     </Container>
   );

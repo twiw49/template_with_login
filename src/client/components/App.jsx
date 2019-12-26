@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect, Switch, withRouter } from "react-router-dom";
 import Home from "./Home";
 import LandingPage from "./LandingPage";
 import { connect } from "react-redux";
+import { compose } from "redux";
 import { injectGlobal } from "styled-components";
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 
 injectGlobal`
   body {
@@ -14,9 +17,11 @@ injectGlobal`
 `;
 
 const App = props => {
-  const { isLoggedIn } = props;
+  const { user, isGuest } = props;
 
-  if (isLoggedIn) {
+  console.log(props);
+
+  if (user || isGuest) {
     return (
       <Switch>
         <Route exact path={"/"} component={Home} />
@@ -34,9 +39,14 @@ const App = props => {
 };
 
 App.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired
+  user: PropTypes.object,
+  isGuest: PropTypes.bool
 };
 
-const mapStateToProps = state => ({ isLoggedIn: state.isLoggedIn });
-
-export default connect(mapStateToProps, null)(App);
+export default compose(
+  withRouter,
+  connect(state => ({
+    isGuest: state.isGuest,
+    user: state.user
+  }))
+)(App);

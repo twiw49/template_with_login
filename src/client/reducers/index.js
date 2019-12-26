@@ -1,8 +1,12 @@
 import { combineReducers } from "redux";
-import isLoggedIn from "./isLoggedIn";
+import isGuest from "./isGuest";
+import isLoading from "./isLoading";
+import user from "./user";
 
 const rootReducer = combineReducers({
-  isLoggedIn
+  isGuest,
+  isLoading,
+  user
 });
 
 export default rootReducer;
