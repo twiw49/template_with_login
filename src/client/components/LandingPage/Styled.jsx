@@ -30,49 +30,18 @@ export const Container = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: space-around;
   flex-direction: column;
+  justify-content: flex-start;
   background: url(${introImage});
   background-size: cover;
   background-position: center;
-  ${({ device, orientation }) =>
-    (device !== "mobile" ||
-      (device === "mobile" && orientation === "landscape")) &&
-    `
-      align-items: center;
-    `};
 `;
 
 export const SubContainerStart = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  ${({ device }) =>
-    device !== "mobile" &&
-    `
-      transform: scale(1.3);
-    `};
-`;
-
-export const SubContainerEnd = styled.div`
-  align-self: flex-end;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 1rem;
-  margin-top: 0;
-  ${({ device }) =>
-    device !== "mobile" &&
-    `
-      transform: scale(1.2);
-    `};
-  ${({ device, orientation }) =>
-    (device !== "mobile" ||
-      (device === "mobile" && orientation === "landscape")) &&
-    `
-      align-self: center;
-      flex-direction: row;
-    `};
+  align-items: center;
+  margin-top: 10%;
 `;
 
 const StyledButton = styled.div`
@@ -87,8 +56,7 @@ const StyledButton = styled.div`
   color: white;
   font-size: 1rem;
   background: ${props => {
-    if (props.title === "페이스북") return "#3D5B97";
-    else if (props.title === "구글") return "rgb(219, 50, 54)";
+    if (props.title === "구글") return "rgb(219, 50, 54)";
     else return "#333";
   }};
 `;

@@ -34,8 +34,8 @@ const LandingPage = props => {
 
   return (
     <Styled.Container>
-      <title>로그인</title>
-      <Styled.SubContainerEnd>
+      <title>부자습관</title>
+      <Styled.SubContainerStart>
         <Fragment>
           <Styled.SocialButton
             provider="google"
@@ -49,7 +49,7 @@ const LandingPage = props => {
             둘러보기
           </Styled.GuestButton>
         </Fragment>
-      </Styled.SubContainerEnd>
+      </Styled.SubContainerStart>
     </Styled.Container>
   );
 };
