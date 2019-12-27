@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import SlideMenu from '../components/SlideMenu';
 
 const withSlideMenu = WrappedComponent => {
-  const HOC = ({ user, isGuest }) => {
+  const HOC = props => {
+    const { user, isGuest } = props;
+
     if (user || isGuest) {
       return (
         <Fragment>
