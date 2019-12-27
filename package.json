@@ -12,7 +12,8 @@
     "s3-sync": "aws s3 sync ./dist/public/ s3://richhabit --delete",
     "git": "git add . && git commit -m \"for deploy\"",
     "deploy": "yarn build:prod && yarn git && yarn s3-sync && sls deploy",
-    "logs": "sls logs -f lambda"
+    "logs": "sls logs -f lambda",
+    "push": "git add . && git commit -m \"for deploy\" && git push -u origin master"
   },
   "keywords": [
     "React",

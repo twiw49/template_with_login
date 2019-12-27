@@ -34,7 +34,7 @@ const LandingPage = props => {
 
   return (
     <Styled.Container>
-      <title>부자습관 | 로그인</title>
+      <title>로그인</title>
       <Styled.SubContainerStart>
         <Fragment>
           <Styled.SocialButton

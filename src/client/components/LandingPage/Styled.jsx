@@ -15,17 +15,6 @@ export const Title = styled.h2`
   border-radius: 5px;
 `;
 
-export const Quote = styled.div`
-  font-size: 1rem;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 1.5rem;
-  margin: 1rem;
-  margin-top: 0;
-  line-height: 1.8;
-  max-width: 500px;
-`;
-
 export const Container = styled.div`
   width: 100vw;
   height: 100vh;
