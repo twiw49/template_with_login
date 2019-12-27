@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import ReactSocialLogin from "react-social-login";
-import { Link } from "react-router-dom";
-import introImage from "../../../assets/images/background1.jpg";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import ReactSocialLogin from 'react-social-login';
+import { Link } from 'react-router-dom';
+import introImage from '../../../assets/images/background1.jpg';
 
 export const Title = styled.h2`
   font-size: 1.8rem;
@@ -45,8 +45,8 @@ const StyledButton = styled.div`
   color: white;
   font-size: 1rem;
   background: ${props => {
-    if (props.title === "구글") return "rgb(219, 50, 54)";
-    else return "#333";
+    if (props.title === '구글') return 'rgb(219, 50, 54)';
+    else return '#333';
   }};
 `;
 

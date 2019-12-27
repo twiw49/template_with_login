@@ -1,9 +1,9 @@
-import { Router } from "express";
-import User from "../models/User";
+import { Router } from 'express';
+import User from '../models/User';
 
 const router = Router();
 
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
   const { _id, name } = req.body;
 
   let user = await User.findOne({ _id });
@@ -15,9 +15,9 @@ router.post("/login", async (req, res) => {
     }).save();
   }
 
-  res.cookie("user", user, {
+  res.cookie('user', user, {
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    path: "/"
+    path: '/'
   });
 
   res.send({
@@ -25,10 +25,10 @@ router.post("/login", async (req, res) => {
   });
 });
 
-router.get("/logout", (req, res) => {
-  res.clearCookie("user");
+router.get('/logout', (req, res) => {
+  res.clearCookie('user');
 
-  res.redirect("/");
+  res.redirect('/');
 });
 
 export default router;

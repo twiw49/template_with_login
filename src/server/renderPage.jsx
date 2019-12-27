@@ -1,21 +1,20 @@
-import { readFileSync, existsSync } from "fs";
+import { readFileSync, existsSync } from 'fs';
 
-import React from "react";
-import { StaticRouter } from "react-router";
-import { renderToString } from "react-dom/server";
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import { ServerStyleSheet } from "styled-components";
+import React from 'react';
+import { StaticRouter } from 'react-router';
+import { renderToString } from 'react-dom/server';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { ServerStyleSheet } from 'styled-components';
 
-import App from "../client/components/App";
-import rootReducer from "../client/reducers";
-import writeMeta from "./writeMeta";
-import withMui from "../client/HOCs/withMui";
+import App from '../client/components/App';
+import rootReducer from '../client/reducers';
+import writeMeta from './writeMeta';
+import withMui from '../client/HOCs/withMui';
 
 const renderHandler = (req, res) => {
-  const manifestPath = "./dist/public/manifest-asset.json";
-  const manifest =
-    existsSync(manifestPath) && JSON.parse(readFileSync(manifestPath, "utf8"));
+  const manifestPath = './dist/public/manifest-asset.json';
+  const manifest = existsSync(manifestPath) && JSON.parse(readFileSync(manifestPath, 'utf8'));
 
   const initialState = req.initialState;
   const store = createStore(rootReducer, initialState);
@@ -41,8 +40,8 @@ const renderHandler = (req, res) => {
       cssMui: `<style id='server-side-mui'>${sheetMui.toString()}</style>`,
       appString,
       preloadedState,
-      mainJsUrl: manifest["main.js"],
-      mainCssUrl: manifest["main.css"]
+      mainJsUrl: manifest['main.js'],
+      mainCssUrl: manifest['main.css']
     })
   );
 };

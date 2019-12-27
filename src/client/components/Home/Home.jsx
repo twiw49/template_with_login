@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import background2 from "../../../assets/images/background2.jpg";
+import React from 'react';
+import styled from 'styled-components';
+import background2 from '../../../assets/images/background2.jpg';
 
 const Title = styled.h1`
   font-size: 2rem;

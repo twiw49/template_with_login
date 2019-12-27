@@ -1,18 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import JssProvider from "react-jss/lib/JssProvider";
-import { create, SheetsRegistry } from "jss";
-import {
-  MuiThemeProvider,
-  createMuiTheme,
-  jssPreset
-} from "@material-ui/core/styles";
+import JssProvider from 'react-jss/lib/JssProvider';
+import { create, SheetsRegistry } from 'jss';
+import { MuiThemeProvider, createMuiTheme, jssPreset } from '@material-ui/core/styles';
 
 const withMui = WrappedComponent => {
   const sheetMui = new SheetsRegistry();
 
   const jss = create(jssPreset());
-  jss.options.insertionPoint = "jss-insertion-point";
+  jss.options.insertionPoint = 'jss-insertion-point';
 
   const createGenerateClassName = () => {
     let counter = 0;
@@ -20,11 +16,7 @@ const withMui = WrappedComponent => {
   };
 
   const AppWithMui = props => (
-    <JssProvider
-      jss={jss}
-      registry={sheetMui}
-      generateClassName={createGenerateClassName()}
-    >
+    <JssProvider jss={jss} registry={sheetMui} generateClassName={createGenerateClassName()}>
       <MuiThemeProvider
         theme={createMuiTheme({
           typography: {

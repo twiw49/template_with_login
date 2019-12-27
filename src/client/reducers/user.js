@@ -1,6 +1,6 @@
 const user = (state = null, action) => {
   switch (action.type) {
-    case "LOGIN": {
+    case 'LOGIN': {
       return action.payload.user;
     }
     default:
