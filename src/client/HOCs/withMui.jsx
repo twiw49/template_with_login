@@ -20,6 +20,7 @@ const withMui = WrappedComponent => {
       <MuiThemeProvider
         theme={createMuiTheme({
           typography: {
+            useNextVariants: true,
             fontFamily: ['"NanumSquare"']
           }
         })}

@@ -18,17 +18,24 @@ process.on('unhandledRejection', reason => {
 let isConnectedToDB = false;
 
 const connectWithRetry = async () => {
-  await mongoose.connect(MONGODB_URL, error => {
-    if (error) {
-      console.log('ERROR: DB is not connected.');
-      console.log(error);
-      isConnectedToDB = false;
-      setTimeout(connectWithRetry, 2000);
-    } else {
-      console.log('DB is connected.');
-      isConnectedToDB = true;
+  await mongoose.connect(
+    MONGODB_URL,
+    {
+      useUnifiedTopology: true,
+      useNewUrlParser: true
+    },
+    error => {
+      if (error) {
+        console.log('ERROR: DB is not connected.');
+        console.log(error);
+        isConnectedToDB = false;
+        setTimeout(connectWithRetry, 2000);
+      } else {
+        console.log('DB is connected.');
+        isConnectedToDB = true;
+      }
     }
-  });
+  );
 };
 
 const app = express()
@@ -46,7 +53,7 @@ const app = express()
 if (process.env.NODE_ENV === 'development') {
   app.use('/static/', express.static('dist/public'));
 
-  const PORT = process.env.PORT || 5000;
+  const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => console.log(`Server Listening on Port : ${PORT}`));
 }
 

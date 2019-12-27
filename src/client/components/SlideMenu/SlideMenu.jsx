@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import Menu from 'react-burger-menu';
+import BookmarkOutlinedIcon from '@material-ui/icons/BookmarksOutlined';
 
 import * as Styled from './Styled';
 import './style.scss';
@@ -16,17 +17,20 @@ class SlideMenu extends Component {
     const { user, isGuest } = this.props;
 
     return (
-      <Menu.stack right width="250px">
+      <Menu.stack right width="250px" disableAutoFocus>
         {user && <Styled.UserName>{user.name}</Styled.UserName>}
         {isGuest && <Styled.UserName>Guest</Styled.UserName>}
         <NavLink exact to="/today">
-          <Styled.IconTitle>오늘 일기</Styled.IconTitle>
+          <BookmarkOutlinedIcon />
+          <Styled.IconTitle>메뉴1</Styled.IconTitle>
         </NavLink>
         <NavLink exact to="/diaries">
-          <Styled.IconTitle>모든 일기</Styled.IconTitle>
+          <BookmarkOutlinedIcon />
+          <Styled.IconTitle>메뉴2</Styled.IconTitle>
         </NavLink>
         {user && (
           <a href="/auth/logout">
+            <BookmarkOutlinedIcon />
             <Styled.IconTitle>로그아웃</Styled.IconTitle>
           </a>
         )}
