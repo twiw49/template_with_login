@@ -18,7 +18,12 @@ class SlideMenu extends Component {
 
     return (
       <Menu.stack right width="250px" disableAutoFocus>
-        {user && <Styled.UserName>{user.name}</Styled.UserName>}
+        {user && (
+          <Styled.FlexContainer>
+            <Styled.UserProfile profile_url={user.profile_image}></Styled.UserProfile>
+            <Styled.UserName>{user.name}</Styled.UserName>
+          </Styled.FlexContainer>
+        )}
         {isGuest && <Styled.UserName>Guest</Styled.UserName>}
         <NavLink exact to="/today">
           <BookmarkOutlinedIcon />

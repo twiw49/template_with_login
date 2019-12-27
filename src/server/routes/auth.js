@@ -4,14 +4,15 @@ import User from '../models/User';
 const router = Router();
 
 router.post('/login', async (req, res) => {
-  const { _id, name } = req.body;
+  const { _id, name, profile_image } = req.body;
 
   let user = await User.findOne({ _id });
 
   if (!user) {
     user = await new User({
       _id,
-      name
+      name,
+      profile_image
     }).save();
   }
 

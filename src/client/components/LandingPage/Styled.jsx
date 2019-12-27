@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactSocialLogin from 'react-social-login';
+import KakaoLogin from 'react-kakao-login';
 import { Link } from 'react-router-dom';
 import introImage from '../../../assets/images/background1.jpg';
 
@@ -64,3 +65,17 @@ Button.propTypes = {
 };
 
 export const SocialButton = ReactSocialLogin(Button);
+
+export const KakaoButton = styled(KakaoLogin)`
+  cursor: pointer;
+  width: 8rem;
+  height: 2.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.4rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  background: #ffeb00;
+  color: #783c00;
+`;
