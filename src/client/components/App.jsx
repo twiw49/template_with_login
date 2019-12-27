@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -19,22 +19,14 @@ body {
 const App = props => {
   const { user, isGuest } = props;
 
-  if (user || isGuest) {
-    return (
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Redirect to="/" />
-        <GlobalStyle />
-      </Switch>
-    );
-  }
-
   return (
-    <Switch>
-      <Route exact path="/" component={LandingPage} />
-      <Redirect to="/" />
+    <Fragment>
+      <Switch>
+        <Route exact path="/" component={user || isGuest ? Home : LandingPage} />
+        <Redirect to="/" />
+      </Switch>
       <GlobalStyle />
-    </Switch>
+    </Fragment>
   );
 };
 
