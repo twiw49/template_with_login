@@ -51,20 +51,16 @@ const app = express()
   .use(cookieParser());
 
 if (process.env.NODE_ENV === 'development') {
-  app.use('/static/', express.static('dist/public'));
-
   const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => console.log(`Server Listening on Port : ${PORT}`));
+  app
+    .use('/static/', express.static('dist/public'))
+    .listen(PORT, () => console.log(`Server Listening on Port : ${PORT}`));
 }
 
 if (process.env.NODE_ENV === 'production') {
-  app.get('/service-worker.js', (req, res) => {
-    return request(`${S3_BUCKET_URL}service-worker.js`).pipe(res);
-  });
-
-  app.get('/manifest.json', (req, res) => {
-    return request(`${S3_BUCKET_URL}manifest.json`).pipe(res);
-  });
+  app
+    .get('/service-worker.js', (req, res) => request(`${S3_BUCKET_URL}service-worker.js`).pipe(res))
+    .get('/manifest.json', (req, res) => request(`${S3_BUCKET_URL}manifest.json`).pipe(res));
 }
 
 app
