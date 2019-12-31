@@ -11,9 +11,7 @@ require('dotenv').config();
 
 const { S3_BUCKET_URL, MONGODB_URL } = process.env;
 
-process.on('unhandledRejection', reason => {
-  console.log('Unhandled Rejection:', reason);
-});
+process.on('unhandledRejection', reason => console.log('Unhandled Rejection:', reason));
 
 let isConnectedToDB = false;
 
