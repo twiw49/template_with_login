@@ -8,13 +8,12 @@ router.post('/login', async (req, res) => {
 
   let user = await User.findOne({ _id });
 
-  if (!user) {
+  if (!user)
     user = await new User({
       _id,
       name,
       profile_image
     }).save();
-  }
 
   res.cookie('user', user, {
     maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -28,7 +27,6 @@ router.post('/login', async (req, res) => {
 
 router.get('/logout', (req, res) => {
   res.clearCookie('user');
-
   res.redirect('/');
 });
 

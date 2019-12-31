@@ -6,7 +6,6 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './client/reducers';
 import App from './client/components/App';
-import registerServiceWorker from './sw/registerServiceWorker';
 
 const env = process.env.NODE_ENV;
 
@@ -15,6 +14,9 @@ const middlewares = [];
 if (env === 'development') {
   const { logger } = require('redux-logger');
   middlewares.push(logger);
+} else if (env === 'production') {
+  const registerServiceWorker = require('./sw/registerServiceWorker');
+  registerServiceWorker();
 }
 
 const preloadedState = window.PRELOADED_STATE;
@@ -33,5 +35,3 @@ ReactDOM.hydrate(
   </Provider>,
   document.getElementById('root')
 );
-
-registerServiceWorker();
