@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import DialogButton from '../DialogButton';
-import AddHabit from '../AddHabit';
+import { connect } from 'react-redux';
+import DialogButton from './DialogButton';
+import AddHabit from './AddHabit';
 
 const Title = styled.h1`
   font-size: 2rem;

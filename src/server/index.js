@@ -55,13 +55,13 @@ if (process.env.NODE_ENV === 'development') {
     .listen(PORT, () => console.log(`Server Listening on Port : ${PORT}`));
 }
 
-if (process.env.NODE_ENV === 'production') {
-  app
-    .get('/service-worker.js', (req, res) => request(`${S3_BUCKET_URL}service-worker.js`).pipe(res))
-    .get('/manifest.json', (req, res) => request(`${S3_BUCKET_URL}manifest.json`).pipe(res));
-}
+if (process.env.NODE_ENV === 'production')
+  app.get('/service-worker.js', (req, res) =>
+    request(`${S3_BUCKET_URL}service-worker.js`).pipe(res)
+  );
 
 app
+  .get('/manifest.json', (req, res) => request(`${S3_BUCKET_URL}manifest.json`).pipe(res))
   .use('/auth', auth)
   .use(fetchData())
   .get('*', renderPage);
