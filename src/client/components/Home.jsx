@@ -26,16 +26,14 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Home = props => {
-  return (
-    <Container>
-      <DialogButton Content={() => <AddHabit />} title="+" dialogTitle="새로운 습관 추가하기" />
-      <a href="/auth/logout">
-        <Button>LOGOUT</Button>
-      </a>
-      <Title>See You Soon!!</Title>
-    </Container>
-  );
-};
+const Home = props => (
+  <Container>
+    <DialogButton Content={() => <AddHabit />} title="+" dialogTitle="새로운 습관 추가하기" />
+    <a href="/auth/logout">
+      <Button>LOGOUT</Button>
+    </a>
+    <Title>See You Soon!!</Title>
+  </Container>
+);
 
 export default connect()(Home);
