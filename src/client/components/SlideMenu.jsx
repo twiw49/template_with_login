@@ -5,7 +5,7 @@ import Menu from 'react-burger-menu';
 import BookmarkOutlinedIcon from '@material-ui/icons/BookmarksOutlined';
 
 import * as Styled from './Styled';
-import './style.scss';
+import './slideMenuStyle.scss';
 
 class SlideMenu extends Component {
   static propTypes = {

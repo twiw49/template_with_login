@@ -47,7 +47,7 @@ const LandingPage = props => {
             onFailure={response => alert('다시 한 번 시도해주세요.')}
             getProfile="true"
           >
-            카카오 로그인
+            카카오 로그인!!
           </Styled.KakaoButton>
           <Styled.GuestButton to="/" onClick={enterAsGuest}>
             둘러보기
