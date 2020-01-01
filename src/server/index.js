@@ -61,13 +61,12 @@ if (process.env.NODE_ENV === 'production') {
   app.get('/service-worker.js', (req, res) => {
     return request(`${S3_BUCKET_URL}service-worker.js`).pipe(res);
   });
-
-  app.get('/manifest.json', (req, res) => {
-    return request(`${S3_BUCKET_URL}manifest.json`).pipe(res);
-  });
 }
 
 app
+  .get('/manifest.json', (req, res) => {
+    return request(`${S3_BUCKET_URL}manifest.json`).pipe(res);
+  })
   .use('/auth', auth)
   .use(fetchData())
   .get('*', renderPage);
