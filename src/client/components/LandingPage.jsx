@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import axios from 'axios';
 import * as Styled from './Styled';
 
@@ -60,7 +62,7 @@ LandingPage.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-export default LandingPage;
+export default compose(connect(state => ({ user: state.user })))(LandingPage);
 
 // <Styled.SocialButton
 //   provider="google"
