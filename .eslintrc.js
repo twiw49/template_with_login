@@ -29,7 +29,10 @@ module.exports = {
     'no-unused-vars': ['warn', { vars: 'all', args: 'none', ignoreRestSiblings: false }],
     'no-console': 'off',
     'no-undef': 'off',
+    'no-alert': 'off',
+    'no-param-reassign': 'off',
     'no-underscore-dangle': ['error', { allow: ['_id', '_json', '_profile'] }],
+    'no-nested-ternary': 'off',
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'jsx-a11y/no-autofocus': 0,
@@ -41,12 +44,15 @@ module.exports = {
         aspects: ['noHref', 'invalidHref', 'preferButton']
       }
     ],
+    'global-require': 0,
     'react/no-array-index-key': 0,
     'react/no-did-mount-set-state': 0,
     'react/require-default-props': 0,
     'react/display-name': 0,
     'react/forbid-prop-types': 0,
     'react/prefer-stateless-function': 0,
-    'import/prefer-default-export': 0
+    'import/prefer-default-export': 0,
+    'react/jsx-fragments': 0,
+    'react/jsx-props-no-spreading': 0
   }
 };

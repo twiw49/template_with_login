@@ -7,7 +7,7 @@ import { createGlobalStyle } from 'styled-components';
 
 import Home from './Home';
 import LandingPage from './LandingPage';
-import withSlideMenu from '../HOCs/withSlideMenu';
+import withPopupMenu from '../HOCs/withPopupMenu';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -20,13 +20,17 @@ body {
 }
 `;
 
-const App = props => {
-  const { user, isGuest } = props;
+const LoadingComponent = () => <div />;
 
+const App = ({ user, isLoading }) => {
   return (
     <Fragment>
       <Switch>
-        <Route exact path="/" component={user || isGuest ? Home : LandingPage} />
+        <Route
+          exact
+          path="/"
+          component={isLoading ? LoadingComponent : user ? Home : LandingPage}
+        />
         <Redirect to="/" />
       </Switch>
       <GlobalStyle />
@@ -36,14 +40,14 @@ const App = props => {
 
 App.propTypes = {
   user: PropTypes.object,
-  isGuest: PropTypes.bool
+  isLoading: PropTypes.bool
 };
 
 export default compose(
   withRouter,
   connect(state => ({
-    isGuest: state.isGuest,
-    user: state.user
+    user: state.user,
+    isLoading: state.isLoading
   })),
-  withSlideMenu
+  withPopupMenu
 )(App);

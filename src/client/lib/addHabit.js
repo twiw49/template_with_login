@@ -1,5 +1,4 @@
 import normalizeDiaries from './normalizeHabits';
-import { Title } from '../components/LandingPage/Styled';
 
 const makeId = () => {
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -9,7 +8,7 @@ const makeId = () => {
   }, '');
 };
 
-// Generate the initial showcase board that every user and guest gets when they first log in
+// Generate the initial showcase board that every user gets when they first log in
 const addHabit = ({ userId, prevHabits = [], newHabit }) =>
   normalizeDiaries({
     userId,

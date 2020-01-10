@@ -7,44 +7,11 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { ServerStyleSheet } from 'styled-components';
 
+import { ServerStyleSheets } from '@material-ui/core/styles';
+
 import App from '../client/components/App';
 import rootReducer from '../client/reducers';
 import writeMeta from './writeMeta';
-import withMui from '../client/HOCs/withMui';
-
-const renderHandler = (req, res) => {
-  const manifestPath = './dist/public/manifest-asset.json';
-  const manifest = existsSync(manifestPath) && JSON.parse(readFileSync(manifestPath, 'utf8'));
-
-  const initialState = req.initialState;
-  const store = createStore(rootReducer, initialState);
-  const preloadedState = JSON.stringify(store.getState());
-
-  const { AppWithMui, sheetMui } = withMui(App);
-
-  const sheetStyled = new ServerStyleSheet();
-  sheetStyled.collectStyles(AppWithMui);
-
-  const appString = renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.url} context={{}}>
-        <AppWithMui />
-      </StaticRouter>
-    </Provider>
-  );
-
-  res.send(
-    renderPage({
-      meta: writeMeta(),
-      cssStyled: sheetStyled.getStyleTags(),
-      cssMui: `<style id='server-side-mui'>${sheetMui.toString()}</style>`,
-      appString,
-      preloadedState,
-      mainJsUrl: manifest['main.js'],
-      mainCssUrl: manifest['main.css']
-    })
-  );
-};
 
 const renderPage = ({
   meta,
@@ -82,6 +49,41 @@ const renderPage = ({
   <script src=${mainJsUrl}></script>
 </html>
   `;
+};
+
+const renderHandler = (req, res) => {
+  const manifestPath = './dist/public/manifest-asset.json';
+  const manifest = existsSync(manifestPath) && JSON.parse(readFileSync(manifestPath, 'utf8'));
+
+  const { initialState } = req;
+  const store = createStore(rootReducer, initialState);
+  const preloadedState = JSON.stringify(store.getState());
+
+  const sheetMui = new ServerStyleSheets();
+  const sheetStyled = new ServerStyleSheet();
+  sheetStyled.collectStyles(App);
+
+  const appString = renderToString(
+    sheetMui.collect(
+      <Provider store={store}>
+        <StaticRouter location={req.url} context={{}}>
+          <App />
+        </StaticRouter>
+      </Provider>
+    )
+  );
+
+  res.send(
+    renderPage({
+      meta: writeMeta(),
+      cssStyled: sheetStyled.getStyleTags(),
+      cssMui: `<style id='server-side-mui'>${sheetMui.toString()}</style>`,
+      appString,
+      preloadedState,
+      mainJsUrl: manifest['main.js'],
+      mainCssUrl: manifest['main.css']
+    })
+  );
 };
 
 export default renderHandler;

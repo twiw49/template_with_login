@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import SlideMenu from '../components/SlideMenu';
+import PopupMenu from '../components/PopupMenu';
 
-const withSlideMenu = WrappedComponent => {
+const withPopupMenu = WrappedComponent => {
   const HOC = props => {
-    const { user, isGuest } = props;
+    const { user } = props;
 
-    if (user || isGuest) {
+    if (user) {
       return (
         <Fragment>
-          <SlideMenu {...props} />
+          <PopupMenu {...props} />
           <WrappedComponent {...props} />
         </Fragment>
       );
@@ -19,11 +19,10 @@ const withSlideMenu = WrappedComponent => {
   };
 
   HOC.propTypes = {
-    user: PropTypes.object,
-    isGuest: PropTypes.bool.isRequired
+    user: PropTypes.object
   };
 
   return HOC;
 };
 
-export default withSlideMenu;
+export default withPopupMenu;

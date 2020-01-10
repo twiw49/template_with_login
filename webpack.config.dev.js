@@ -1,6 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -53,7 +53,7 @@ const clientConfig = {
   plugins: [
     new ExtractTextPlugin('bundle.[hash:6].css'),
     new ManifestPlugin({ fileName: 'manifest-asset.json' }),
-    new CleanWebpackPlugin(['dist'])
+    new CleanWebpackPlugin()
   ],
   resolve: {
     extensions: ['.js', '.jsx']

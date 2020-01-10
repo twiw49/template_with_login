@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
 
 router.get('/logout', (req, res) => {
   res.clearCookie('user');
-  res.redirect('/');
+  res.send();
 });
 
 export default router;
