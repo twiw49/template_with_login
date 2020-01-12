@@ -25,53 +25,47 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ResponsiveDialog = ({ Content, title, dialogTitle }) => {
+const DialogComponent = ({ Trigger, Content, title }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => setOpen(true);
+  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <Fragment>
-      <Button
-        onClick={handleClickOpen}
-        color="default"
-        variant="contained"
-        style={{ margin: '0.5rem' }}
-        size="small"
-      >
-        {title}
-      </Button>
+      <div onClick={handleOpen}>
+        <Trigger />
+      </div>
       <Dialog
         open={open}
         onClose={handleClose}
-        maxWidth="md"
+        maxWidth="xs"
         fullWidth
         classes={{
           paper: classes.dialog
         }}
       >
         <div className={classes.flex}>
-          <DialogTitle style={{ padding: '0.5rem 1rem' }}>{dialogTitle}</DialogTitle>
+          <DialogTitle style={{ padding: '0 1rem' }}>{title}</DialogTitle>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
               닫기
             </Button>
           </DialogActions>
         </div>
-        <DialogContent style={{ background: '#222', padding: 10 }}>
-          <Content />
+        <DialogContent style={{ padding: '1rem', paddingTop: '0' }}>
+          <Content handleClose={handleClose} />
         </DialogContent>
       </Dialog>
     </Fragment>
   );
 };
 
-ResponsiveDialog.propTypes = {
-  Content: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  dialogTitle: PropTypes.string.isRequired
+DialogComponent.propTypes = {
+  Trigger: PropTypes.any,
+  Content: PropTypes.any,
+  title: PropTypes.string.isRequired
 };
 
-export default ResponsiveDialog;
+export default DialogComponent;

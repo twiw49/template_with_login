@@ -38,7 +38,7 @@ const renderPage = ({
     ${cssMui}
     <!-- jss-insertion-point -->
     ${cssStyled}
-    <link rel="stylesheet" type="text/css" href=${mainCssUrl} />
+    ${mainCssUrl ? `<link rel="stylesheet" type="text/css" href=${mainCssUrl} />` : ''}
   </head>
   <body>
     <div id="root">${appString}</div>

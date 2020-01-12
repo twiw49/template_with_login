@@ -7,7 +7,6 @@ import { createGlobalStyle } from 'styled-components';
 
 import Home from './Home';
 import LandingPage from './LandingPage';
-import withPopupMenu from '../HOCs/withPopupMenu';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -48,6 +47,5 @@ export default compose(
   connect(state => ({
     user: state.user,
     isLoading: state.isLoading
-  })),
-  withPopupMenu
+  }))
 )(App);

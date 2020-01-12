@@ -1,22 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import DialogButton from './DialogButton';
-import AddHabit from './AddHabit';
+import withPopupMenu from '../HOCs/withPopupMenu';
+import HabitCard from './HabitCard';
 
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
+  padding-top: 4rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
 `;
 
-const Home = props => (
+const Home = ({ user: { habits } }) => (
   <Container>
-    <DialogButton Content={() => <AddHabit />} title="+" dialogTitle="새로운 습관추가하기" />
+    {habits.map(habit => (
+      <HabitCard {...habit} key={habit.id} />
+    ))}
   </Container>
 );
 
-export default connect()(Home);
+Home.propTypes = {
+  user: PropTypes.object.isRequired
+};
+
+export default compose(
+  connect(state => ({
+    user: state.user
+  })),
+  withPopupMenu
+)(Home);

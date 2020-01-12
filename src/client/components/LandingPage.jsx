@@ -42,7 +42,7 @@ const LandingPage = props => {
     });
 
     const { data } = await axios.post('/auth/login', {
-      _id: socialName === 'google' ? response.profile.id : response.profile.id,
+      id: socialName === 'google' ? response.profile.id : response.profile.id,
       name: socialName === 'google' ? response.profile.name : response.profile.properties.nickname,
       profile_image:
         socialName === 'google' ? '' : response.profile.kakao_account.profile.profile_image_url

@@ -4,7 +4,7 @@ const fetchData = () => async (req, res, next) => {
   if (req.cookies.user) {
     console.log('FETCH DATA FROM DB');
 
-    let user = await User.findOne({ _id: req.cookies.user._id });
+    const user = await User.findOne({ id: req.cookies.user.id });
 
     req.initialState = {
       user

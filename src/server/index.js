@@ -6,6 +6,7 @@ import request from 'request';
 import renderPage from './renderPage';
 import fetchData from './fetchData';
 import auth from './routes/auth';
+import api from './routes/api';
 
 require('dotenv').config();
 
@@ -22,7 +23,8 @@ const connectWithRetry = async () => {
     MONGODB_URL,
     {
       useUnifiedTopology: true,
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useFindAndModify: false
     },
     error => {
       if (error) {
@@ -65,6 +67,7 @@ if (process.env.NODE_ENV === 'production')
 app
   .get('/manifest.json', (req, res) => request(`${S3_BUCKET_URL}manifest.json`).pipe(res))
   .use('/auth', auth)
+  .use('/api', api)
   .use(fetchData())
   .get('*', renderPage);
 

@@ -6,10 +6,11 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './client/reducers';
 import App from './client/components/App';
+import persistMiddleware from './middleware/persistMiddleware';
 
 const env = process.env.NODE_ENV;
 
-const middlewares = [];
+const middlewares = [persistMiddleware];
 
 if (env === 'development') {
   const { logger } = require('redux-logger');

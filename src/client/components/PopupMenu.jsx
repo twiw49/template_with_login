@@ -6,6 +6,8 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 import styled from 'styled-components';
+import HabitAdd from './HabitAdd';
+import DialogComponent from './DialogComponent';
 
 const UserProfile = styled.div`
   width: 3rem;
@@ -18,9 +20,10 @@ const UserProfile = styled.div`
   position: fixed;
   top: 1rem;
   right: 1rem;
+  cursor: pointer;
 `;
 
-const PopupMenu = ({ user, history, dispatch }) => {
+const PopupMenu = ({ user, dispatch }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -33,37 +36,42 @@ const PopupMenu = ({ user, history, dispatch }) => {
   };
 
   return (
-    user && (
-      <Fragment>
-        <UserProfile profile_url={user.profile_image} onClick={handleClick} />
-        <Menu
-          anchorEl={anchorEl}
-          keepMounted
-          open={open}
-          onClose={handleClose}
-          TransitionComponent={Fade}
-          elevation={1}
-          getContentAnchorEl={null}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center'
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center'
-          }}
-        >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </Menu>
-      </Fragment>
-    )
+    <Fragment>
+      <UserProfile profile_url={user.profile_image} onClick={handleClick} />
+      <Menu
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Fade}
+        elevation={1}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center'
+        }}
+      >
+        <MenuItem onClick={handleClose}>
+          <DialogComponent
+            Trigger={() => <div>습관추가</div>}
+            Content={HabitAdd}
+            title="습관추가"
+          />
+        </MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
+    </Fragment>
   );
 };
 
 PopupMenu.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default connect()(PopupMenu);

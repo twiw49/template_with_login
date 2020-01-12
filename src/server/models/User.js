@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
-  _id: String,
+  id: String,
   name: String,
-  profile_image: String
+  profile_image: String,
+  habits: Array
 });
 
 global.User = global.User || mongoose.model('User', UserSchema);
