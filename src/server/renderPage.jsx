@@ -6,7 +6,6 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { ServerStyleSheet } from 'styled-components';
-
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
 import App from '../client/components/App';

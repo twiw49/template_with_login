@@ -20,7 +20,8 @@ const useStyles = makeStyles({
     margin: '1rem'
   },
   title: {
-    fontSize: 14
+    fontSize: 14,
+    color: 'red'
   },
   rule: {
     marginBottom: 12
