@@ -10,16 +10,14 @@ import persistMiddleware from './middleware/persistMiddleware';
 
 const env = process.env.NODE_ENV;
 
-// const middlewares = [persistMiddleware];
-
-const middlewares = [];
+const middlewares = [persistMiddleware];
 
 if (env === 'development') {
   const { logger } = require('redux-logger');
   middlewares.push(logger);
 } else if (env === 'production') {
-  const registerServiceWorker = require('./sw/registerServiceWorker');
-  registerServiceWorker();
+  // const registerServiceWorker = require('./sw/registerServiceWorker');
+  // registerServiceWorker();
 }
 
 const preloadedState = window.PRELOADED_STATE;
