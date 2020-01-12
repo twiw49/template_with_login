@@ -8,7 +8,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const SizePlugin = require('size-plugin');
 
 const clientConfig = {
   name: 'client',
@@ -68,8 +67,7 @@ const clientConfig = {
     ]),
     new ManifestPlugin({ fileName: 'manifest-asset.json' }),
     new CleanWebpackPlugin(),
-    new ExtractTextPlugin('bundle.[hash:6].css'),
-    new SizePlugin()
+    new ExtractTextPlugin('bundle.[hash:6].css')
   ],
   resolve: {
     extensions: ['.js', '.jsx']
