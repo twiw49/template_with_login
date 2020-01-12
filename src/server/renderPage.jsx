@@ -38,7 +38,6 @@ const renderPage = ({
     ${cssMui}
     <!-- jss-insertion-point -->
     ${cssStyled}
-    ${mainCssUrl ? `<link rel="stylesheet" type="text/css" href=${mainCssUrl} />` : ''}
   </head>
   <body>
     <div id="root">${appString}</div>
@@ -87,3 +86,5 @@ const renderHandler = (req, res) => {
 };
 
 export default renderHandler;
+
+// ${mainCssUrl ? `<link rel="stylesheet" type="text/css" href=${mainCssUrl} />` : ''}
