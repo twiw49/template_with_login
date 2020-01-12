@@ -21,7 +21,6 @@ const renderPage = ({
   mainJsUrl,
   mainCssUrl
 }) => {
-  console.log(cssMui);
   return `
 <!DOCTYPE html>
 <html>

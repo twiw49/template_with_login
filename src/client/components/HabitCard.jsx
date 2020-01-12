@@ -65,7 +65,7 @@ const HabitCard = ({ id, title, rule, dispatch }) => {
             />
           </IconButton>
         </div>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
+        <Typography className={classes.title} gutterBottom>
           Word of the Day
         </Typography>
         <Typography variant="h3" component="h3">
