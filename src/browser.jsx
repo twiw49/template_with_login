@@ -10,7 +10,9 @@ import persistMiddleware from './middleware/persistMiddleware';
 
 const env = process.env.NODE_ENV;
 
-const middlewares = [persistMiddleware];
+// const middlewares = [persistMiddleware];
+
+const middlewares = [];
 
 if (env === 'development') {
   const { logger } = require('redux-logger');
