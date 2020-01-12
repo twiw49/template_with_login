@@ -11,7 +11,7 @@ const makeId = () => {
 const assets = JSON.parse(readFileSync('./dist/public/manifest-asset.json', 'utf8'));
 
 const CACHE_NAME = `static-cache-${makeId()}`;
-const URLS_TO_CACHE = ['https://xn--zb0bx62aj1dbwf.com', ...Object.values(assets)];
+const URLS_TO_CACHE = ['https://xn--5-3u6el60bxvj.com', ...Object.values(assets)];
 const BASE = readFileSync('./src/sw/base.js').toString();
 const SW = `(function() {
   "use strict";

@@ -20,9 +20,6 @@ if (env === 'development') {
   register();
 }
 
-console.log(register);
-register();
-
 const preloadedState = window.PRELOADED_STATE;
 delete window.PRELOADED_STATE;
 
