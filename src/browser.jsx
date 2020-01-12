@@ -16,8 +16,8 @@ if (env === 'development') {
   const { logger } = require('redux-logger');
   middlewares.push(logger);
 } else if (env === 'production') {
-  // const registerServiceWorker = require('./sw/registerServiceWorker');
-  // registerServiceWorker();
+  const registerServiceWorker = require('./sw/registerServiceWorker');
+  registerServiceWorker();
 }
 
 const preloadedState = window.PRELOADED_STATE;
