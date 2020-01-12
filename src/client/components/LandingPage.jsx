@@ -23,7 +23,7 @@ const Container = styled.div`
 const KakaoButton = styled(KakaoLogin)`
   cursor: pointer;
   width: 8rem;
-  height: 2.3rem;
+  height: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
