@@ -7,6 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './client/reducers';
 import App from './client/components/App';
 import persistMiddleware from './middleware/persistMiddleware';
+import { register } from './sw/registerServiceWorker';
 
 const env = process.env.NODE_ENV;
 
@@ -16,9 +17,11 @@ if (env === 'development') {
   const { logger } = require('redux-logger');
   middlewares.push(logger);
 } else if (env === 'production') {
-  // const registerServiceWorker = require('./sw/registerServiceWorker');
-  // registerServiceWorker();
+  register();
 }
+
+console.log(register);
+register();
 
 const preloadedState = window.PRELOADED_STATE;
 delete window.PRELOADED_STATE;
