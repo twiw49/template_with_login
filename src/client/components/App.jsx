@@ -4,10 +4,18 @@ import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createGlobalStyle } from 'styled-components';
-import { StylesProvider } from '@material-ui/core/styles';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+import { create } from 'jss';
 
 import Home from './Home';
 import LandingPage from './LandingPage';
+
+const jss = create({
+  ...jssPreset(),
+  // Define a custom insertion point that JSS will look for when injecting the styles into the DOM.
+  insertionPoint: 'jss-insertion-point'
+});
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -24,7 +32,7 @@ const LoadingComponent = () => <div />;
 
 const App = ({ user, isLoading }) => {
   return (
-    <StylesProvider injectFirst>
+    <StylesProvider jss={jss}>
       <Fragment>
         <Switch>
           <Route
