@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 14,
-    color: 'red'
+    color: 'red !important'
   },
   rule: {
     marginBottom: 12
