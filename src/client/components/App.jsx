@@ -4,22 +4,9 @@ import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createGlobalStyle } from 'styled-components';
-import { StylesProvider, jssPreset, createGenerateClassName } from '@material-ui/core/styles';
-
-import { create } from 'jss';
 
 import Home from './Home';
 import LandingPage from './LandingPage';
-
-const jss = create({
-  ...jssPreset(),
-  // Define a custom insertion point that JSS will look for when injecting the styles into the DOM.
-  insertionPoint: 'jss-insertion-point'
-});
-
-const generateClassName = createGenerateClassName({
-  productionPrefix: 'abc'
-});
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -36,19 +23,17 @@ const LoadingComponent = () => <div />;
 
 const App = ({ user, isLoading }) => {
   return (
-    <StylesProvider jss={jss} generateClassName={generateClassName}>
-      <Fragment>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            component={isLoading ? LoadingComponent : user ? Home : LandingPage}
-          />
-          <Redirect to="/" />
-        </Switch>
-        <GlobalStyle />
-      </Fragment>
-    </StylesProvider>
+    <Fragment>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          component={isLoading ? LoadingComponent : user ? Home : LandingPage}
+        />
+        <Redirect to="/" />
+      </Switch>
+      <GlobalStyle />
+    </Fragment>
   );
 };
 
