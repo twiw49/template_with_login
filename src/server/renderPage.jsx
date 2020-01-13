@@ -35,6 +35,7 @@ const renderPage = ({
     <meta property="og:url" content="">
     ${meta}
     ${cssMui}
+    <!-- jss-insertion-point -->
     ${cssStyled}
     ${mainCssUrl ? `<link rel="stylesheet" type="text/css" href=${mainCssUrl} />` : ''}
   </head>
