@@ -18,7 +18,7 @@ const jss = create({
 });
 
 const generateClassName = createGenerateClassName({
-  productionPrefix: '*********'
+  productionPrefix: 'abc'
 });
 
 const GlobalStyle = createGlobalStyle`
