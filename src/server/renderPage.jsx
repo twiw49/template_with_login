@@ -6,7 +6,8 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { ServerStyleSheet } from 'styled-components';
-import { ServerStyleSheets } from '@material-ui/core/styles';
+import { ServerStyleSheets, StylesProvider, jssPreset } from '@material-ui/core/styles';
+import { create } from 'jss';
 
 import App from '../client/components/App';
 import rootReducer from '../client/reducers';
@@ -58,6 +59,12 @@ const renderHandler = (req, res) => {
   const store = createStore(rootReducer, initialState);
   const preloadedState = JSON.stringify(store.getState());
 
+  const jss = create({
+    ...jssPreset(),
+    // Define a custom insertion point that JSS will look for when injecting the styles into the DOM.
+    insertionPoint: 'jss-insertion-point'
+  });
+
   const sheetMui = new ServerStyleSheets();
   const sheetStyled = new ServerStyleSheet();
   sheetStyled.collectStyles(App);
@@ -66,7 +73,9 @@ const renderHandler = (req, res) => {
     sheetMui.collect(
       <Provider store={store}>
         <StaticRouter location={req.url} context={{}}>
-          <App />
+          <StylesProvider jss={jss}>
+            <App />
+          </StylesProvider>
         </StaticRouter>
       </Provider>
     )

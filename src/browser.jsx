@@ -4,10 +4,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
-import { create } from 'jss';
-import { StylesProvider, jssPreset } from '@material-ui/core/styles';
-
 import rootReducer from './client/reducers';
 import App from './client/components/App';
 import persistMiddleware from './middleware/persistMiddleware';
@@ -32,19 +28,10 @@ const store =
     ? createStore(rootReducer, preloadedState, composeWithDevTools(applyMiddleware(...middlewares)))
     : createStore(rootReducer, preloadedState, applyMiddleware(...middlewares));
 
-const jss = create({
-  ...jssPreset(),
-  // Define a custom insertion point that JSS will look for when injecting the styles into the DOM.
-  insertionPoint: 'jss-insertion-point'
-});
-
 ReactDOM.hydrate(
   <Provider store={store}>
     <BrowserRouter>
-      <StylesProvider jss={jss}>
-        <App />
-      </StylesProvider>
-      ;
+      <App />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')
