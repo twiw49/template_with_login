@@ -7,7 +7,7 @@
     "start": "concurrently \"yarn serve\" \"yarn build\"",
     "build": "NODE_ENV=development webpack --watch --mode development",
     "build:dev": "NODE_ENV=development webpack --mode development",
-    "build:prod": "NODE_ENV=production webpack --mode production && node ./src/sw/writeServiceWorker",
+    "build:prod": "NODE_ENV=development webpack --mode production && node ./src/sw/writeServiceWorker",
     "serve": "nodemon dist/lambda.js",
     "s3-sync": "aws s3 sync ./dist/public/ s3://richhabit --delete",
     "git": "git add . && git commit -m \"for deploy\"",
