@@ -24,7 +24,7 @@ const LoadingComponent = () => <div />;
 
 const App = ({ user, isLoading }) => {
   return (
-    <StylesProvider>
+    <StylesProvider injectFirst>
       <Fragment>
         <Switch>
           <Route
