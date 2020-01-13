@@ -6,11 +6,7 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { ServerStyleSheet } from 'styled-components';
-import {
-  ServerStyleSheets,
-  StylesProvider,
-  createGenerateClassName
-} from '@material-ui/core/styles';
+import { ServerStyleSheets } from '@material-ui/core/styles';
 
 import App from '../client/components/App';
 import rootReducer from '../client/reducers';
@@ -66,17 +62,11 @@ const renderHandler = (req, res) => {
   const sheetStyled = new ServerStyleSheet();
   sheetStyled.collectStyles(App);
 
-  const generateClassName = createGenerateClassName({
-    productionPrefix: 'c'
-  });
-
   const appString = renderToString(
     sheetMui.collect(
       <Provider store={store}>
         <StaticRouter location={req.url} context={{}}>
-          <StylesProvider generateClassName={generateClassName}>
-            <App />
-          </StylesProvider>
+          <App />
         </StaticRouter>
       </Provider>
     )

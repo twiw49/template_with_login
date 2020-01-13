@@ -4,6 +4,7 @@ import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createGlobalStyle } from 'styled-components';
+import { StylesProvider } from '@material-ui/core/styles';
 
 import Home from './Home';
 import LandingPage from './LandingPage';
@@ -23,17 +24,19 @@ const LoadingComponent = () => <div />;
 
 const App = ({ user, isLoading }) => {
   return (
-    <Fragment>
-      <Switch>
-        <Route
-          exact
-          path="/"
-          component={isLoading ? LoadingComponent : user ? Home : LandingPage}
-        />
-        <Redirect to="/" />
-      </Switch>
-      <GlobalStyle />
-    </Fragment>
+    <StylesProvider>
+      <Fragment>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            component={isLoading ? LoadingComponent : user ? Home : LandingPage}
+          />
+          <Redirect to="/" />
+        </Switch>
+        <GlobalStyle />
+      </Fragment>
+    </StylesProvider>
   );
 };
 
