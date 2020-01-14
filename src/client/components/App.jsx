@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createGlobalStyle } from 'styled-components';
+import { ThemeProvider, createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 import Home from './Home';
 import LandingPage from './LandingPage';
@@ -27,7 +28,15 @@ const LoadingComponent = () => <div />;
 
 const App = ({ user, isLoading }) => {
   return (
-    <Fragment>
+    <ThemeProvider
+      theme={responsiveFontSizes(
+        createMuiTheme({
+          typography: {
+            fontFamily: ['"NanumSquare"']
+          }
+        })
+      )}
+    >
       <Switch>
         <Route
           exact
@@ -37,7 +46,7 @@ const App = ({ user, isLoading }) => {
         <Redirect to="/" />
       </Switch>
       <GlobalStyle />
-    </Fragment>
+    </ThemeProvider>
   );
 };
 

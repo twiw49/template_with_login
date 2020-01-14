@@ -6,7 +6,7 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { ServerStyleSheet } from 'styled-components';
-import { ServerStyleSheets, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ServerStyleSheets } from '@material-ui/core/styles';
 
 import App from '../client/components/App';
 import rootReducer from '../client/reducers';
@@ -66,15 +66,7 @@ const renderHandler = (req, res) => {
     sheetMui.collect(
       <Provider store={store}>
         <StaticRouter location={req.url} context={{}}>
-          <ThemeProvider
-            theme={createMuiTheme({
-              typography: {
-                fontFamily: ['"NanumSquare"']
-              }
-            })}
-          >
-            <App />
-          </ThemeProvider>
+          <App />
         </StaticRouter>
       </Provider>
     )
