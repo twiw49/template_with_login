@@ -7,11 +7,13 @@ import withPopupMenu from '../HOCs/withPopupMenu';
 import HabitCard from './HabitCard';
 
 const Container = styled.div`
+  position: absolute;
+  top: 4rem;
   width: 100vw;
-  height: 100vh;
-  padding-top: 4rem;
+  height: calc(100vh - 4rem);
   display: flex;
   flex-direction: column;
+  overflow: scroll;
 `;
 
 const Home = ({ user: { habits } }) => (

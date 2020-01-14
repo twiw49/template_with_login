@@ -21,6 +21,7 @@ const UserProfile = styled.div`
   top: 1rem;
   right: 1rem;
   cursor: pointer;
+  z-index: 100;
 `;
 
 const PopupMenu = ({ user, dispatch }) => {
