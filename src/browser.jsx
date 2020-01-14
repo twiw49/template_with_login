@@ -16,9 +16,7 @@ const middlewares = [persistMiddleware];
 if (env === 'development') {
   const { logger } = require('redux-logger');
   middlewares.push(logger);
-} else if (env === 'production') {
-  register();
-}
+} else if (env === 'production') register();
 
 const preloadedState = window.PRELOADED_STATE;
 delete window.PRELOADED_STATE;

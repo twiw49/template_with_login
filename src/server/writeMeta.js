@@ -2,7 +2,7 @@ const writeMeta = () => {
   return `
   <link rel="manifest" href="/manifest.json">
 
-  <meta name="apple-mobile-web-app-title" content="5분일기">
+  <meta name="apple-mobile-web-app-title" content="">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-startup-image" href="https://s3.ap-northeast-2.amazonaws.com/fiveminutediary-assets/icons/launch.png">
   

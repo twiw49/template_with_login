@@ -20,6 +20,7 @@ body {
 }
 *:active, *:focus {
   outline: 0;
+  outline-style: none;
   -moz-outline-style: none;
 }
 `;
