@@ -26,8 +26,6 @@ const writeMeta = () => {
   <meta name="msapplication-square150x150logo" content="https://s3.ap-northeast-2.amazonaws.com/fiveminutediary-assets/icons/mstile-150x150.png">
   <meta name="msapplication-wide310x150logo" content="https://s3.ap-northeast-2.amazonaws.com/fiveminutediary-assets/icons/mstile-310x150.png">
   <meta name="msapplication-square310x310logo" content="https://s3.ap-northeast-2.amazonaws.com/fiveminutediary-assets/icons/mstile-310x310.png">
-
-  <link rel="stylesheet" type="text/css" href="https://s3.ap-northeast-2.amazonaws.com/fiveminutediary-assets/fonts/nanumsquare.css">
   `;
 };
 

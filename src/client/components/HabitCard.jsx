@@ -29,7 +29,11 @@ const useStyles = makeStyles({
   iconContainer: {
     position: 'absolute',
     top: 10,
-    right: 10
+    right: 10,
+    display: 'flex'
+  },
+  iconButton: {
+    borderRadius: 0
   }
 });
 
@@ -54,16 +58,23 @@ const HabitCard = ({ id, title, rule, dispatch }) => {
     <Card className={classes.card} variant="outlined">
       <CardContent>
         <div className={classes.iconContainer}>
-          <IconButton aria-label="delete" onClick={handleDeleteHabit}>
+          <IconButton
+            className={classes.iconButton}
+            aria-label="delete"
+            onClick={handleDeleteHabit}
+          >
             <DeleteIcon />
           </IconButton>
-          <IconButton aria-label="edit">
-            <DialogComponent
-              Trigger={() => <EditIcon onClick={startEditing} />}
-              Content={HabitEdit}
-              title="습관수정"
-            />
-          </IconButton>
+
+          <DialogComponent
+            Trigger={() => (
+              <IconButton className={classes.iconButton} aria-label="edit" onClick={startEditing}>
+                <EditIcon />
+              </IconButton>
+            )}
+            Content={HabitEdit}
+            title="습관수정"
+          />
         </div>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           Word of the Day

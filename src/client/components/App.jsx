@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createGlobalStyle } from 'styled-components';
 import { ThemeProvider, createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
-
 import Home from './Home';
 import LandingPage from './LandingPage';
 
 const GlobalStyle = createGlobalStyle`
+
 body {
   margin: 0;
   padding: 0;
@@ -29,15 +29,7 @@ const LoadingComponent = () => <div />;
 
 const App = ({ user, isLoading }) => {
   return (
-    <ThemeProvider
-      theme={responsiveFontSizes(
-        createMuiTheme({
-          typography: {
-            fontFamily: ['"NanumSquare"']
-          }
-        })
-      )}
-    >
+    <ThemeProvider theme={responsiveFontSizes(createMuiTheme())}>
       <Switch>
         <Route
           exact
