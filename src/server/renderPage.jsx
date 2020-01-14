@@ -6,13 +6,7 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { ServerStyleSheet } from 'styled-components';
-import {
-  ServerStyleSheets,
-  StylesProvider,
-  jssPreset,
-  createGenerateClassName
-} from '@material-ui/core/styles';
-import { create } from 'jss';
+import { ServerStyleSheets, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import App from '../client/components/App';
 import rootReducer from '../client/reducers';
@@ -42,8 +36,7 @@ const renderPage = ({
     ${meta}
     ${cssMui}
     ${cssStyled}
-    <!-- jss-insertion-point -->
-    ${mainCssUrl ? `<link rel="stylesheet" type="text/css" href=${mainCssUrl} />` : ''}
+    ${mainCssUrl}
   </head>
   <body>
     <div id="root">${appString}</div>
@@ -64,6 +57,7 @@ const renderHandler = (req, res) => {
   const store = createStore(rootReducer, initialState);
   const preloadedState = JSON.stringify(store.getState());
 
+  // for Mui - SSR in production mode : NODE_ENV=production 설정 해야함 (AWS)
   const sheetMui = new ServerStyleSheets();
   const sheetStyled = new ServerStyleSheet();
   sheetStyled.collectStyles(App);
@@ -72,7 +66,15 @@ const renderHandler = (req, res) => {
     sheetMui.collect(
       <Provider store={store}>
         <StaticRouter location={req.url} context={{}}>
-          <App />
+          <ThemeProvider
+            theme={createMuiTheme({
+              typography: {
+                fontFamily: ['"NanumSquare"']
+              }
+            })}
+          >
+            <App />
+          </ThemeProvider>
         </StaticRouter>
       </Provider>
     )
@@ -87,6 +89,8 @@ const renderHandler = (req, res) => {
       preloadedState,
       mainJsUrl: manifest['main.js'],
       mainCssUrl: manifest['main.css']
+        ? `<link rel="stylesheet" type="text/css" href=${mainCssUrl} />`
+        : ''
     })
   );
 };

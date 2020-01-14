@@ -12,6 +12,10 @@ const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
   padding: 0;
+  font-family: "NanumSquare", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 *:active, *:focus {
   outline: 0;
