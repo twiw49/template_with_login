@@ -68,22 +68,11 @@ const renderHandler = (req, res) => {
   const sheetStyled = new ServerStyleSheet();
   sheetStyled.collectStyles(App);
 
-  const jss = create({
-    ...jssPreset(),
-    insertionPoint: 'jss-insertion-point'
-  });
-
-  const generateClassName = createGenerateClassName({
-    productionPrefix: 'abc'
-  });
-
   const appString = renderToString(
     sheetMui.collect(
       <Provider store={store}>
         <StaticRouter location={req.url} context={{}}>
-          <StylesProvider jss={jss} generateClassName={generateClassName}>
-            <App />
-          </StylesProvider>
+          <App />
         </StaticRouter>
       </Provider>
     )
