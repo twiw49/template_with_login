@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   card: {
     position: 'relative',
     margin: '1rem',
-    boxShadow: '5px 5px 25px 0 rgba(46,61,73,.2)',
+    boxShadow: '5px 5px 25px 0 rgba(46,61,73,.25)',
     borderRadius: '.375rem',
     border: 0,
     flexShrink: 0
