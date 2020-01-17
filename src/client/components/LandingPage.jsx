@@ -65,9 +65,7 @@ const LandingPage = props => {
       <KakaoButton
         jsKey="cabb27a51ee75906fe9c7d604ed03cf2"
         onSuccess={response => loginBySocial(response, 'kakao')}
-        onFailure={response => {
-          dispatch({ type: 'OPEN_ALERT', payload: { message: '다시 시도해주세요!' } });
-        }}
+        onFailure={response => alert('다시 시도해주세요')}
         getProfile="true"
       >
         카카오 로그인
