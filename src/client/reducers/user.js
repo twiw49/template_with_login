@@ -21,6 +21,18 @@ const user = (state = null, action) => {
         ]
       };
     }
+    case 'SUCCESS': {
+      return {
+        ...state,
+        logs: [
+          ...state.logs,
+          {
+            id: makeId(),
+            ...action.payload
+          }
+        ]
+      };
+    }
     case 'DELETE_HABIT': {
       const { id } = action.payload;
 

@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const HabitEdit = ({ dispatch, handleClose, id, title, rule }) => {
+const HabitEdit = ({ dispatch, handleClose, isEditing: { id, title, rule } }) => {
   const titleInputRef = useRef(null);
   const ruleInputRef = useRef(null);
 
@@ -71,11 +71,9 @@ const HabitEdit = ({ dispatch, handleClose, id, title, rule }) => {
 HabitEdit.propTypes = {
   dispatch: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
-  id: PropTypes.string,
-  title: PropTypes.string,
-  rule: PropTypes.string
+  isEditing: PropTypes.object.isRequired
 };
 
 export default connect(state => ({
-  ...state.isEditing
+  isEditing: state.isEditing
 }))(HabitEdit);

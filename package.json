@@ -33,6 +33,7 @@
   "dependencies": {
     "@material-ui/core": "^4.8.2",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.39",
     "@unicef/material-ui-currency-textfield": "^0.8.5",
     "aws-serverless-express": "^3.0.2",
     "axios": "^0.19.0",
@@ -46,6 +47,7 @@
     "cookie-parser": "^1.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
+    "moment-timezone": "^0.5.27",
     "mongoose": "^5.3.9",
     "morgan": "^1.9.1",
     "prop-types": "^15.6.1",

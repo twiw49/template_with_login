@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
-import PopupMenu from '../components/PopupMenu';
+import Alert from '../components/Alert';
 
-const withPopupMenu = WrappedComponent => {
+const withAlert = WrappedComponent => {
   const HOC = props => {
     return (
       <Fragment>
-        <PopupMenu {...props} />
+        <Alert {...props} />
         <WrappedComponent {...props} />
       </Fragment>
     );
@@ -14,4 +14,4 @@ const withPopupMenu = WrappedComponent => {
   return HOC;
 };
 
-export default withPopupMenu;
+export default withAlert;

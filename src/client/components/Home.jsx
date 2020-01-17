@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import withPopupMenu from '../HOCs/withPopupMenu';
+import withAlert from '../HOCs/withAlert';
 import HabitCard from './HabitCard';
 
 const Container = styled.div`
@@ -16,21 +17,22 @@ const Container = styled.div`
   overflow: scroll;
 `;
 
-const Home = ({ user: { habits } }) => (
+const Home = ({ habits }) => (
   <Container>
     {habits.map(habit => (
-      <HabitCard {...habit} key={habit.id} />
+      <HabitCard habit={habit} key={habit.id} />
     ))}
   </Container>
 );
 
 Home.propTypes = {
-  user: PropTypes.object.isRequired
+  habits: PropTypes.array.isRequired
 };
 
 export default compose(
   connect(state => ({
-    user: state.user
+    habits: state.user.habits
   })),
-  withPopupMenu
+  withPopupMenu,
+  withAlert
 )(Home);

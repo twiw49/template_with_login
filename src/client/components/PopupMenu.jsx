@@ -21,10 +21,9 @@ const UserProfile = styled.div`
   top: 1rem;
   right: 1rem;
   cursor: pointer;
-  z-index: 100;
 `;
 
-const PopupMenu = ({ user, dispatch }) => {
+const PopupMenu = ({ profile_image, dispatch }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -38,7 +37,7 @@ const PopupMenu = ({ user, dispatch }) => {
 
   return (
     <Fragment>
-      <UserProfile profile_url={user.profile_image} onClick={handleClick} />
+      <UserProfile profile_url={profile_image} onClick={handleClick} />
       <Menu
         anchorEl={anchorEl}
         keepMounted
@@ -56,9 +55,21 @@ const PopupMenu = ({ user, dispatch }) => {
           horizontal: 'center'
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClose} disableGutters style={{ display: 'block' }}>
           <DialogComponent
-            Trigger={() => <div>습관추가</div>}
+            Trigger={() => (
+              <div
+                style={{
+                  paddingLeft: '16px',
+                  paddingRight: '16px',
+                  minHeight: '36px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                습관추가
+              </div>
+            )}
             Content={HabitAdd}
             title="습관추가"
           />
@@ -71,8 +82,10 @@ const PopupMenu = ({ user, dispatch }) => {
 };
 
 PopupMenu.propTypes = {
-  user: PropTypes.object.isRequired,
+  profile_image: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired
 };
 
-export default connect()(PopupMenu);
+export default connect(state => ({
+  profile_image: state.user.profile_image
+}))(PopupMenu);

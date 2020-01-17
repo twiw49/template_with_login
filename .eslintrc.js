@@ -29,7 +29,6 @@ module.exports = {
     'no-unused-vars': ['warn', { vars: 'all', args: 'none', ignoreRestSiblings: false }],
     'no-console': 'off',
     'no-undef': 'off',
-    'no-alert': 'off',
     'no-param-reassign': 'off',
     'no-underscore-dangle': ['error', { allow: ['_id', '_json', '_profile'] }],
     'no-nested-ternary': 'off',

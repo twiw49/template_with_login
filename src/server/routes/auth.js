@@ -13,7 +13,8 @@ router.post('/login', async (req, res) => {
       id,
       name,
       profile_image,
-      habits: []
+      habits: [],
+      logs: []
     }).save();
 
   res.cookie('user', user, {

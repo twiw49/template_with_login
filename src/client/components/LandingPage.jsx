@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import KakaoLogin from 'react-kakao-login';
@@ -66,7 +65,9 @@ const LandingPage = props => {
       <KakaoButton
         jsKey="cabb27a51ee75906fe9c7d604ed03cf2"
         onSuccess={response => loginBySocial(response, 'kakao')}
-        onFailure={response => alert('다시 한 번 시도해주세요.')}
+        onFailure={response => {
+          dispatch({ type: 'OPEN_ALERT', payload: { message: '다시 시도해주세요!' } });
+        }}
         getProfile="true"
       >
         카카오 로그인
@@ -79,7 +80,7 @@ LandingPage.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-export default compose(connect(state => ({ user: state.user })))(LandingPage);
+export default connect()(LandingPage);
 
 // import ReactSocialLogin from 'react-social-login';
 

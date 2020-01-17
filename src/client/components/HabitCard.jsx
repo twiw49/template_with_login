@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,7 +10,9 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
+import moment from 'moment-timezone';
 import HabitEdit from './HabitEdit';
+import HabitLogs from './HabitLogs';
 import DialogComponent from './DialogComponent';
 
 const useStyles = makeStyles({
@@ -48,7 +50,7 @@ const useStyles = makeStyles({
   }
 });
 
-const HabitCard = ({ id, title, rule, dispatch }) => {
+const HabitCard = ({ habit: { id, title, rule }, logs, dispatch }) => {
   const classes = useStyles();
   const [money, setMoney] = useState(0);
 
@@ -59,6 +61,25 @@ const HabitCard = ({ id, title, rule, dispatch }) => {
         id
       }
     });
+
+  const handleSuccess = () => {
+    const time = moment()
+      .locale('ko')
+      .tz('GMT')
+      .add(new Date().getTimezoneOffset() / -60, 'hours')
+      .format('YYYY년 MM월 DD일 HH시 mm분 ss초');
+
+    dispatch({
+      type: 'SUCCESS',
+      payload: {
+        habit_id: id,
+        title,
+        rule,
+        time,
+        money
+      }
+    });
+  };
 
   const startEditing = () =>
     dispatch({
@@ -94,7 +115,7 @@ const HabitCard = ({ id, title, rule, dispatch }) => {
           {rule}
         </Typography>
         <CurrencyTextField
-          label="투자금액"
+          label="성공시 투자금액"
           value={money}
           currencySymbol="₩"
           minimumValue={0}
@@ -104,19 +125,25 @@ const HabitCard = ({ id, title, rule, dispatch }) => {
           className={classes.currencyField}
           onChange={(event, value) => setMoney(value)}
         />
-        <Button className={classes.successButton} variant="contained" size="large" color="primary">
+        <Button
+          className={classes.successButton}
+          variant="contained"
+          size="large"
+          color="primary"
+          onClick={handleSuccess}
+        >
           성공!
         </Button>
       </CardContent>
+      <HabitLogs habit_id={id} />
     </Card>
   );
 };
 
 HabitCard.propTypes = {
-  id: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  rule: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired
+  habit: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  logs: PropTypes.array.isRequired
 };
 
 export default connect()(HabitCard);

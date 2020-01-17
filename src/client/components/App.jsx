@@ -29,14 +29,14 @@ body {
 
 const LoadingComponent = () => <div />;
 
-const App = ({ user, isLoading }) => {
+const App = ({ isLoggedIn, isLoading }) => {
   return (
     <ThemeProvider theme={responsiveFontSizes(createMuiTheme())}>
       <Switch>
         <Route
           exact
           path="/"
-          component={isLoading ? LoadingComponent : user ? Home : LandingPage}
+          component={isLoading ? LoadingComponent : isLoggedIn ? Home : LandingPage}
         />
         <Redirect to="/" />
       </Switch>
@@ -46,14 +46,14 @@ const App = ({ user, isLoading }) => {
 };
 
 App.propTypes = {
-  user: PropTypes.object,
+  isLoggedIn: PropTypes.bool,
   isLoading: PropTypes.bool
 };
 
 export default compose(
   withRouter,
   connect(state => ({
-    user: state.user,
+    isLoggedIn: Boolean(state.user),
     isLoading: state.isLoading
   }))
 )(App);
