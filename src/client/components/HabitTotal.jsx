@@ -8,9 +8,9 @@ const useStyles = makeStyles(theme => ({
   total: {
     position: 'fixed',
     fontWeight: 'bold',
-    fontSize: '2rem',
+    fontSize: '2.5rem',
     margin: '1rem',
-    color: 'gold'
+    color: 'coral'
   }
 }));
 
@@ -19,7 +19,7 @@ const HabitTotal = ({ logs }) => {
   const totalMoney =
     logs.length > 0 ? filterByToday(logs).reduce((prev, curr) => prev + curr.money, 0) : 0;
 
-  return <div className={classes.total}>{`${totalMoney}원`}</div>;
+  return <div className={classes.total}>{`${totalMoney.toLocaleString()}원`}</div>;
 };
 
 HabitTotal.propTypes = {

@@ -22,11 +22,11 @@ const Container = styled.div`
 const KakaoButton = styled(KakaoLogin)`
   cursor: pointer;
   width: 8rem;
-  height: 2.5rem;
+  height: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
+  margin: 2rem;
   border-radius: 5px;
   font-size: 1rem;
   background: #ffeb00;
