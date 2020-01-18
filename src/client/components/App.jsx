@@ -29,21 +29,19 @@ body {
 
 const LoadingComponent = () => <div />;
 
-const App = ({ isLoggedIn, isLoading }) => {
-  return (
-    <ThemeProvider theme={responsiveFontSizes(createMuiTheme())}>
-      <Switch>
-        <Route
-          exact
-          path="/"
-          component={isLoading ? LoadingComponent : isLoggedIn ? Home : LandingPage}
-        />
-        <Redirect to="/" />
-      </Switch>
-      <GlobalStyle />
-    </ThemeProvider>
-  );
-};
+const App = ({ isLoggedIn, isLoading }) => (
+  <ThemeProvider theme={responsiveFontSizes(createMuiTheme())}>
+    <Switch>
+      <Route
+        exact
+        path="/"
+        component={isLoading ? LoadingComponent : isLoggedIn ? Home : LandingPage}
+      />
+      <Redirect to="/" />
+    </Switch>
+    <GlobalStyle />
+  </ThemeProvider>
+);
 
 App.propTypes = {
   isLoggedIn: PropTypes.bool,

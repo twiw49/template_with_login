@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import withPopupMenu from '../HOCs/withPopupMenu';
 import withAlert from '../HOCs/withAlert';
 import HabitCard from './HabitCard';
+import HabitTotal from './HabitTotal';
 
 const Container = styled.div`
   position: absolute;
@@ -18,11 +19,14 @@ const Container = styled.div`
 `;
 
 const Home = ({ habits }) => (
-  <Container>
-    {habits.map(habit => (
-      <HabitCard habit={habit} key={habit.id} />
-    ))}
-  </Container>
+  <Fragment>
+    <HabitTotal />
+    <Container>
+      {habits.map(habit => (
+        <HabitCard habit={habit} key={habit.id} />
+      ))}
+    </Container>
+  </Fragment>
 );
 
 Home.propTypes = {

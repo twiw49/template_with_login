@@ -50,9 +50,9 @@ const useStyles = makeStyles({
   }
 });
 
-const HabitCard = ({ habit: { id, title, rule }, logs, dispatch }) => {
+const HabitCard = ({ habit: { id, title, rule, lastSuccessMoney }, dispatch }) => {
   const classes = useStyles();
-  const [money, setMoney] = useState(0);
+  const [money, setMoney] = useState(lastSuccessMoney);
 
   const handleDeleteHabit = () =>
     dispatch({
@@ -142,8 +142,7 @@ const HabitCard = ({ habit: { id, title, rule }, logs, dispatch }) => {
 
 HabitCard.propTypes = {
   habit: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  logs: PropTypes.array.isRequired
+  dispatch: PropTypes.func.isRequired
 };
 
 export default connect()(HabitCard);

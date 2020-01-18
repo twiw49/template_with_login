@@ -1,33 +1,72 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import CardContent from '@material-ui/core/CardContent';
+import { makeStyles } from '@material-ui/core/styles';
+import filterByToday from '../lib/filterByToday';
 
-const HabitLogs = ({ logs, habit_id }) => {
-  return (
+const useStyles = makeStyles(theme => ({
+  log: {
+    paddingTop: '10px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  time: {
+    color: 'gray',
+    fontSize: '0.7rem',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  right: {
+    display: 'flex'
+  },
+  delete: {
+    fontSize: '0.7rem',
+    paddingLeft: '10px',
+    cursor: 'pointer',
+    color: 'rgba(0, 0, 0, 0.3)',
+    '&:hover': {
+      color: 'black'
+    }
+  }
+}));
+
+const HabitLogs = ({ logs, habit_id, dispatch }) => {
+  const classes = useStyles();
+
+  const handleDeleteLog = id => {
+    dispatch({
+      type: 'DELETE_LOG',
+      payload: {
+        id
+      }
+    });
+  };
+
+  const filteredLogs = filterByToday(logs).filter(log => log.habit_id === habit_id);
+
+  return filteredLogs.length ? (
     <CardContent>
-      {logs
-        .filter(
-          log =>
-            moment(log.time, 'YYYY년 MM월 DD일 HH시 mm분 ss초').format('YYYYMMDD') ===
-            moment()
-              .locale('ko')
-              .tz('GMT')
-              .add(new Date().getTimezoneOffset() / -60, 'hours')
-              .format('YYYYMMDD')
-        )
-        .filter(log => log.habit_id === habit_id)
-        .map(log => (
-          <div key={log.id}>{log.time}</div>
-        ))}
+      {filteredLogs.map(log => (
+        <div key={log.id} className={classes.log}>
+          <div>{`${log.money}원`}</div>
+          <div className={classes.right}>
+            <div className={classes.time}>{log.time}</div>
+            <div className={classes.delete} onClick={() => handleDeleteLog(log.id)}>
+              X
+            </div>
+          </div>
+        </div>
+      ))}
     </CardContent>
-  );
+  ) : null;
 };
 
 HabitLogs.propTypes = {
   logs: PropTypes.array.isRequired,
-  habit_id: PropTypes.string.isRequired
+  habit_id: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default connect(state => ({

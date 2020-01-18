@@ -17,7 +17,9 @@ router.post('/login', async (req, res) => {
       logs: []
     }).save();
 
-  res.cookie('user', user, {
+  console.log(user);
+
+  res.cookie('user', user.id, {
     maxAge: 30 * 24 * 60 * 60 * 1000,
     path: '/'
   });

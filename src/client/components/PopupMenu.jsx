@@ -75,7 +75,7 @@ const PopupMenu = ({ profile_image, dispatch }) => {
           />
         </MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
       </Menu>
     </Fragment>
   );

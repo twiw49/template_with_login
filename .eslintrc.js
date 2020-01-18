@@ -22,6 +22,7 @@ module.exports = {
   },
   plugins: ['react', 'prettier'],
   rules: {
+    camelcase: 'off',
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     'linebreak-style': ['error', 'unix'],
@@ -32,7 +33,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-underscore-dangle': ['error', { allow: ['_id', '_json', '_profile'] }],
     'no-nested-ternary': 'off',
-    camelcase: 'off',
+    'no-alert': 'off',
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'jsx-a11y/no-autofocus': 0,

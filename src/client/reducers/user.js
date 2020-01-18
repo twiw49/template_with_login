@@ -9,7 +9,10 @@ const user = (state = null, action) => {
       return null;
     }
     case 'ADD_HABIT': {
-      return { ...state, habits: [...state.habits, { id: makeId(), ...action.payload }] };
+      return {
+        ...state,
+        habits: [...state.habits, { id: makeId(), lastSuccessMoney: 1000, ...action.payload }]
+      };
     }
     case 'EDIT_HABIT': {
       return {
@@ -24,6 +27,13 @@ const user = (state = null, action) => {
     case 'SUCCESS': {
       return {
         ...state,
+        habits: [
+          ...state.habits.map(habit => {
+            return habit.id === action.payload.habit_id
+              ? { ...habit, lastSuccessMoney: action.payload.money }
+              : habit;
+          })
+        ],
         logs: [
           ...state.logs,
           {
@@ -35,9 +45,13 @@ const user = (state = null, action) => {
     }
     case 'DELETE_HABIT': {
       const { id } = action.payload;
-
       return { ...state, habits: [...state.habits.filter(habit => habit.id !== id)] };
     }
+    case 'DELETE_LOG': {
+      const { id } = action.payload;
+      return { ...state, logs: [...state.logs.filter(log => log.id !== id)] };
+    }
+
     default:
       return state;
   }
