@@ -14,7 +14,6 @@ const useStyles = makeStyles(theme => ({
   },
   time: {
     color: 'gray',
-    fontSize: '0.7rem',
     display: 'flex',
     alignItems: 'center'
   },
@@ -22,7 +21,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   delete: {
-    fontSize: '0.7rem',
     paddingLeft: '10px',
     cursor: 'pointer',
     color: 'rgba(0, 0, 0, 0.3)',

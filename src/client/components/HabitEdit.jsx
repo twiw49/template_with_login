@@ -71,7 +71,7 @@ const HabitEdit = ({ dispatch, handleClose, isEditing: { id, title, rule } }) =>
 HabitEdit.propTypes = {
   dispatch: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
-  isEditing: PropTypes.object.isRequired
+  isEditing: PropTypes.any
 };
 
 export default connect(state => ({

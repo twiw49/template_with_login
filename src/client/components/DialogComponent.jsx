@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DialogComponent = ({ Trigger, Content, title }) => {
+const DialogComponent = ({ Trigger, Content, title, fullScreen }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -38,6 +38,7 @@ const DialogComponent = ({ Trigger, Content, title }) => {
         <Trigger />
       </div>
       <Dialog
+        fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         maxWidth="xs"
@@ -65,7 +66,8 @@ const DialogComponent = ({ Trigger, Content, title }) => {
 DialogComponent.propTypes = {
   Trigger: PropTypes.any,
   Content: PropTypes.any,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  fullScreen: PropTypes.bool
 };
 
 export default DialogComponent;

@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 import styled from 'styled-components';
 import HabitAdd from './HabitAdd';
+import HabitPast from './HabitPast';
 import DialogComponent from './DialogComponent';
 
 const UserProfile = styled.div`
@@ -29,6 +30,7 @@ const PopupMenu = ({ profile_image, dispatch }) => {
 
   const handleClick = event => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
+
   const handleLogout = async () => {
     dispatch({ type: 'LOGOUT' });
     handleClose();
@@ -60,9 +62,9 @@ const PopupMenu = ({ profile_image, dispatch }) => {
             Trigger={() => (
               <div
                 style={{
-                  paddingLeft: '16px',
-                  paddingRight: '16px',
-                  minHeight: '36px',
+                  paddingLeft: '1rem',
+                  paddingRight: '3rem',
+                  minHeight: '24px',
                   display: 'flex',
                   alignItems: 'center'
                 }}
@@ -74,7 +76,26 @@ const PopupMenu = ({ profile_image, dispatch }) => {
             title="습관추가"
           />
         </MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose} disableGutters style={{ display: 'block' }}>
+          <DialogComponent
+            fullScreen
+            Trigger={() => (
+              <div
+                style={{
+                  paddingLeft: '1rem',
+                  paddingRight: '3rem',
+                  minHeight: '24px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                지난기록
+              </div>
+            )}
+            Content={HabitPast}
+            title="지난기록"
+          />
+        </MenuItem>
         <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
       </Menu>
     </Fragment>
