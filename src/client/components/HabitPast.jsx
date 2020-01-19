@@ -25,8 +25,9 @@ const useStyles = makeStyles(theme => ({
   logs: {
     width: '100%'
   },
-  flex: {
-    display: 'flex'
+  flexEnd: {
+    display: 'flex',
+    justifyContent: 'flex-end'
   },
   gray: {
     marginLeft: '10px',
@@ -87,12 +88,12 @@ const HabitPast = ({ logs, dispatch }) => {
             <ExpansionPanelDetails>
               <div className={classes.logs}>
                 {obj[date].map(log => (
-                  <div key={log.id} className={classes.log}>
-                    <div className={classes.flex}>
+                  <div key={log.id}>
+                    <div className={classes.log}>
                       <div>{`${log.money.toLocaleString()}원`}</div>
                       <div className={classes.gray}>{`${log.title}`}</div>
                     </div>
-                    <div className={classes.flex}>
+                    <div className={classes.flexEnd}>
                       <div className={classes.gray}>{log.time}</div>
                       <div className={classes.delete} onClick={() => handleDeleteLog(log.id)}>
                         X
