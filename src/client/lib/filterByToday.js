@@ -1,14 +1,8 @@
 import moment from 'moment-timezone';
 
-const filterByToday = logs =>
+const filterByToday = ({ logs, todayDate }) =>
   logs.filter(
-    log =>
-      moment(log.time, 'YYYY년 MM월 DD일 HH시 mm분 ss초').format('YYYYMMDD') ===
-      moment()
-        .locale('ko')
-        .tz('GMT')
-        .add(new Date().getTimezoneOffset() / -60, 'hours')
-        .format('YYYYMMDD')
+    log => moment(log.time, 'YYYY년 MM월 DD일 HH:mm').format('YYYY년 MM월 DD일') === todayDate
   );
 
 export default filterByToday;

@@ -70,7 +70,7 @@ const HabitPast = ({ logs, dispatch }) => {
   };
 
   const obj = logs.reduce((prev, curr) => {
-    const date = moment(curr.time, 'YYYY년 MM월 DD일 HH시 mm분 ss초').format('YYYYMMDD');
+    const date = moment(curr.time, 'YYYY년 MM월 DD일 HH:mm').format('YYYYMMDD');
     prev[date] = date in prev ? [...prev[date], curr] : [curr];
     return { ...prev };
   }, {});
@@ -97,7 +97,9 @@ const HabitPast = ({ logs, dispatch }) => {
                       <div className={classes.title}>{`${log.title}`}</div>
                     </div>
                     <div className={classes.flex}>
-                      <div className={classes.gray}>{log.time}</div>
+                      <div className={classes.gray}>
+                        {moment(log.time, 'YYYY년 MM월 DD일 HH:mm').format('HH:mm')}
+                      </div>
                       <div className={classes.delete} onClick={() => handleDeleteLog(log.id)}>
                         X
                       </div>

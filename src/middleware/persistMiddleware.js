@@ -13,7 +13,8 @@ const persistMiddleware = store => next => async action => {
       'END_LOADING',
       'START_EDITING',
       'OPEN_ALERT',
-      'CLOSE_ALERT'
+      'CLOSE_ALERT',
+      'UPDATE_TIME'
     ].includes(action.type)
   ) {
     const { user } = store.getState();

@@ -63,19 +63,17 @@ const HabitCard = ({ habit: { id, title, rule, lastSuccessMoney }, dispatch }) =
     });
 
   const handleSuccess = () => {
-    const time = moment()
-      .locale('ko')
-      .tz('GMT')
-      .add(new Date().getTimezoneOffset() / -60, 'hours')
-      .format('YYYY년 MM월 DD일 HH시 mm분 ss초');
-
     dispatch({
       type: 'SUCCESS',
       payload: {
         habit_id: id,
         title,
         rule,
-        time,
+        time: moment()
+          .locale('ko')
+          .tz('GMT')
+          .add(new Date().getTimezoneOffset() / -60, 'hours')
+          .format('YYYY년 MM월 DD일 HH:mm'),
         money
       }
     });

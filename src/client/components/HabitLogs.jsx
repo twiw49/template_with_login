@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const HabitLogs = ({ logs, habit_id, dispatch }) => {
+const HabitLogs = ({ logs, habit_id, todayDate, dispatch }) => {
   const classes = useStyles();
 
   const handleDeleteLog = id => {
@@ -42,7 +42,7 @@ const HabitLogs = ({ logs, habit_id, dispatch }) => {
     });
   };
 
-  const filteredLogs = filterByToday(logs).filter(log => log.habit_id === habit_id);
+  const filteredLogs = filterByToday({ logs, todayDate }).filter(log => log.habit_id === habit_id);
 
   return filteredLogs.length ? (
     <CardContent>
@@ -64,9 +64,11 @@ const HabitLogs = ({ logs, habit_id, dispatch }) => {
 HabitLogs.propTypes = {
   logs: PropTypes.array.isRequired,
   habit_id: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  todayDate: PropTypes.string.isRequired
 };
 
 export default connect(state => ({
-  logs: state.user.logs
+  logs: state.user.logs,
+  todayDate: state.todayDate
 }))(HabitLogs);
